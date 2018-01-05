@@ -1,0 +1,6 @@
+pytest
+pandas>=0.20.3
+numpy>=1.13.3
+gensim>=3.2.0
+scikit_learn>=0.19.1
+git+git://github.com/facebookresearch/fastText.git

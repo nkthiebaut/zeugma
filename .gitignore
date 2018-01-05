@@ -1,0 +1,6 @@
+.cache
+*.egg-info
+*.pyc
+*.csv
+.ipynb_checkpoints
+*.png
