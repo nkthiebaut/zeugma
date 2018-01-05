@@ -8,7 +8,7 @@ setup(name='zeugma',
       author='Nicolas Thiebaut',
       author_email='nkthiebaut@gmail.com',
       url='https://github.com/nkthiebaut',
-      download_url='https://github.com/nkthiebaut/zeugma/archive/0.1.tar.gz'
+      download_url='https://github.com/nkthiebaut/zeugma/archive/0.1.tar.gz',
       install_requires=[
           'numpy>=0.1',
 	  'pandas',
