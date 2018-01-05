@@ -1,7 +1,6 @@
 language: python
 python:
   - "3.6"
-  - "nightly"
 install:
   - sudo apt-get update
   # We do this conditionally because it saves us some downloading if the
@@ -23,7 +22,8 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION 
   - source activate test-environment
   - pip install -r requirements.txt
-  - python setup.py install
+  - pip install -e .
+    #- python setup.py install
     #- pip install .
 script:
   - pytest
