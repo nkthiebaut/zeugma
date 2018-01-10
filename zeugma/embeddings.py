@@ -30,6 +30,9 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
     """ Abstract text vectorizer class """
 
     def __init__(self, model_path=None, trainable=False, **kwargs):
+        self.trainable = trainable
+        self.model_path = model_path
+        self.params = dict(kwargs)
         if trainable:
             for method in ['train', 'save']:
                 if not hasattr(self, method):
@@ -47,9 +50,6 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
                 raise FileNotFoundError(self.__class__.__name__ +
                                         ' model file not found')
             self.model = self.load_pretrained_model()
-        self.trainable = trainable
-        self.model_path = model_path
-        self.params = dict(kwargs)
 
     @abstractmethod
     def transform_sentence(self, text):
