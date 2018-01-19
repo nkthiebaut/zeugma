@@ -100,13 +100,14 @@ class FastTextTransformer(EmbeddingTransformer):
         """ fastText model loader """
         return fastText.load_model(self.model_path)
 
-    def download_embeddings(self, url=FASTTEXT_URL):
+    @staticmethod
+    def download_embeddings(model_path, url=FASTTEXT_URL):
         """ Download and unzip fasttext pre-trained embeddings """
-        zip_file = os.path.join(os.path.dirname(self.model_path),
+        zip_file = os.path.join(os.path.dirname(model_path),
                                 'wiki.simple.zip')
         urllib.request.urlretrieve(url, zip_file)
         with zipfile.ZipFile(zip_file, "r") as zip_ref:
-            zip_ref.extractall(os.path.dirname(self.model_path))
+            zip_ref.extractall(os.path.dirname(model_path))
 
 
 W2V_EMBEDDINGS_URL = "https://github.com/eyaler/word2vec-slim/raw/master/" +\
@@ -158,10 +159,11 @@ class Word2VecTransformer(EmbeddingTransformer):
         if not text:
             return np.zeros(self.model.vector_size)
         return np.mean(self.model.wv[text], axis=0)
-
-    def download_embeddings(self, url=W2V_EMBEDDINGS_URL, outfile=None):
+    
+    @staticmethod
+    def download_embeddings(model_path, url=W2V_EMBEDDINGS_URL, outfile=None):
         """ Download Word2vec pre-computed embeddings from Eyaler github repo """
-        gz_file = os.path.join(os.path.dirname(self.model_path),
+        gz_file = os.path.join(os.path.dirname(model_path),
                                'GoogleNews-vectors-negative300.bin')
         urllib.request.urlretrieve(url, gz_file)
         if outfile is None:
