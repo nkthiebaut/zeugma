@@ -15,11 +15,11 @@ setup(name='zeugma',
       classifiers=[],
       setup_requires=[
           'numpy>=1.13.3',
-          'Cython==0.27.3',
+          'Cython>=0.27.3',
       ],
       install_requires=[
           'numpy>=1.13.3',
-          'Cython==0.27.3',
+          'Cython>=0.27.3',
           'pandas>=0.20.3',
           'gensim>=3.2.0',
           'scikit_learn>=0.19.1',

@@ -14,4 +14,4 @@ Zeugma
 
 Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) use in machine learning pipelines, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_.
 
-Install package with ``pip install zeugma``.
+Install package with ``pip install Cython && pip install zeugma`` (Cython is required by the fastText package, on which zeugma is dependent).
