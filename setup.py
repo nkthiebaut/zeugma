@@ -19,7 +19,7 @@ setup(name='zeugma',
           'gensim>=3.2.0',
           'scikit_learn>=0.19.1',
           'fastText',
-      ]
+      ],
       dependency_links=['git+git://github.com/facebookresearch/fastText.git']
      )
 
