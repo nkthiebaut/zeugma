@@ -1,0 +1,7 @@
+include README.md
+include LICENSE.txt
+include setup.py
+include setup.cfg
+include requirements.txt
+
+graft zeugma
