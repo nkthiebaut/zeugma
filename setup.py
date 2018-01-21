@@ -4,13 +4,13 @@ from distutils.core import setup
 
 setup(name='zeugma',
       packages=['zeugma'],
-      version='0.15',
+      version='0.16',
       license='MIT',
       description='Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) compatible with scikit-learn Pipeline',
       author='Nicolas Thiebaut',
       author_email='nkthiebaut@gmail.com',
       url='https://github.com/nkthiebaut',
-      download_url='https://github.com/nkthiebaut/zeugma/archive/0.15.tar.gz',
+      download_url='https://github.com/nkthiebaut/zeugma/archive/0.16.tar.gz',
       keywords=['embeddings'],
       classifiers=[],
       install_requires=[
