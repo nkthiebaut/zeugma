@@ -13,5 +13,13 @@ setup(name='zeugma',
       download_url='https://github.com/nkthiebaut/zeugma/archive/0.14.tar.gz',
       keywords=['embeddings'],
       classifiers=[],
+      install_requires=[
+          'pandas>=0.20.3',
+          'numpy>=1.13.3',
+          'gensim>=3.2.0',
+          'scikit_learn>=0.19.1',
+          'fastText',
+      ]
+      dependency_links=['git+git://github.com/facebookresearch/fastText.git']
      )
 
