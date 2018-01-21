@@ -4,19 +4,19 @@ from distutils.core import setup
 
 setup(name='zeugma',
       packages=['zeugma'],
-      version='0.17',
+      version='0.18',
       license='MIT',
       description='Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) compatible with scikit-learn Pipeline',
       author='Nicolas Thiebaut',
       author_email='nkthiebaut@gmail.com',
       url='https://github.com/nkthiebaut',
-      download_url='https://github.com/nkthiebaut/zeugma/archive/0.17.tar.gz',
+      download_url='https://github.com/nkthiebaut/zeugma/archive/0.18.tar.gz',
       keywords=['embeddings'],
       classifiers=[],
       setup_requires=[
           'numpy>=1.13.3',
           'Cython',
-      ]
+      ],
       install_requires=[
           'pandas>=0.20.3',
           'gensim>=3.2.0',
