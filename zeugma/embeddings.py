@@ -6,6 +6,7 @@ Created on the 05/01/18
 """
 
 from abc import ABCMeta, abstractmethod
+from functools import reduce
 import gzip
 from multiprocessing import cpu_count
 import os
@@ -23,7 +24,6 @@ FASTTEXT_URL = "https://s3-us-west-1.amazonaws.com/fasttext-vectors/" +\
     "wiki.simple.zip" # English light version: 2.4 GB
 # FASTTEXT_URL = "https://s3-us-west-1.amazonaws.com/fasttext-vectors/" +\
 #   "wiki.en.zip"  # English large version: 9.6GB
-
 
 
 class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
@@ -170,3 +170,39 @@ class Word2VecTransformer(EmbeddingTransformer):
             outfile = gz_file[:-3]
         with gzip.open(gz_file, 'rb') as f_in, open(outfile, 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
+
+
+GLOVE_EMBEDDINGS_URL = "http://nlp.stanford.edu/data/glove.6B.zip"
+
+
+class GloveTransformer(EmbeddingTransformer):
+    """ Glove embeddings class, transforms a corpus to its Glove
+    representation matrix"""
+
+    def __init__(self, model_path):
+        super().__init__(model_path=model_path)
+        self.embeddings_dict = dict()
+        with open(self.model_file, encoding="utf8") as glove_stream:
+            for line in glove_stream:
+                values = line.split()
+                word = values[0]
+                value = np.asarray(values[1:], dtype='float32')
+                self.embeddings_dict[word] = value
+
+    def transform_sentence(self, text):
+        """ Return the mean of the words embeddings """
+        size = len(self.embeddings_dict['the'])
+        embeddings = (self.embeddings_dict.get(w, np.zeros(size)) for w in text)
+        text_vector = reduce(np.add, embeddings, np.zeros(size))
+        return text_vector / len(text)
+
+    @staticmethod
+    def download_glove_embeddings(model_path, url=GLOVE_EMBEDDINGS_URL):
+        """ Download GloVe pre-computed embeddings from Stanford website """
+        model_dir = os.path.dirname(model_path)
+        zip_file = os.path.join(model_dir, 'glove.6B.zip')
+        urllib.request.urlretrieve(url, zip_file)
+        with zipfile.ZipFile(zip_file, "r") as zip_ref:
+            zip_ref.extractall(model_dir)
+
+    #TODO: add GloVe training with the glove_python library
