@@ -32,7 +32,7 @@ Pretrained downloaded embeddings
 As an illustrative example the **cosine similarity** of the sentences *zeugma* and *figure of speech* is computed using the FastTextTransformer
 with **downloaded embeddings** (default URL is used here)::
 
-    >>> from zeugma.embeddings import FastTextTransformer
+    >>> from zeugma import FastTextTransformer
     >>> model_path = './fasttext.bin'
     >>> FastTextTransformer.download_embeddings(model_path)
     >>> fasttext = FastTextTransformer(model_path)
@@ -45,7 +45,7 @@ Training embeddings
 -------------------
 Zeugma can also be used to compute the **embeddings on your own corpus** (composed of only two sentences here)::
 
-      >>> from zeugma.embeddings import Word2VecTransformer
+      >>> from zeugma import Word2VecTransformer
       >>> w2v = Word2Word2VecTransformer(trainable=True)
       >>> embeddings = w2v.fit_transform(['zeugma', 'figure of speech'])
       >>> from sklearn.metrics.pairwise import cosine_similarity
