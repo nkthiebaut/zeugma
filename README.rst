@@ -14,37 +14,45 @@ Zeugma
 
 Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) use in machine learning pipelines, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_.
 
+Installation
+============
+
 Install package with ``pip install Cython && pip install zeugma`` (Cython is required by the fastText package, on which zeugma is dependent).
 
--------
-Example
--------
+
+Examples
+========
 
 Embedding transformers can be either be used with downloaded embeddings (they
 all come with a default embedding URL) or trained.
 
-Example with a pretrained downloaded model (default URL is used here)::
+Pretrained downloaded embeddings
+--------------------------------
+
+As an illustrative example the **cosine similarity** of the sentences *zeugma* and *figure of speech* is computed using the FastTextTransformer
+with **downloaded embeddings** (default URL is used here)::
 
     >>> from zeugma.embeddings import FastTextTransformer
     >>> model_path = './fasttext.bin'
     >>> FastTextTransformer.download_embeddings(model_path)
     >>> fasttext = FastTextTransformer(model_path)
-    >>> v1 = fasttext.transform(['zeugma'])
-    >>> v2 = fasttext.transform(['figure of speech'])
+    >>> embeddings = fasttext.transform(['zeugma', 'figure of speech'])
     >>> from sklearn.metrics.pairwise import cosine_similarity
-    >>> cosine_similarity(v1, v2)[0][0]
+    >>> cosine_similarity(embeddings)[0, 1]
     0.32840478
 
-Example training model::
+Training embeddings
+-------------------
+Zeugma can also be used to compute the **embeddings on your own corpus** (composed of only two sentences here)::
 
       >>> from zeugma.embeddings import Word2VecTransformer
       >>> w2v = Word2Word2VecTransformer(trainable=True)
-      >>> w2v.fit(['zeugma', 'figure of speech'])
-      >>> v1 = w2v.transform(['zeugma'])
-      >>> v2 = w2v.transform(['figure of speech'])
+      >>> embeddings = w2v.fit_transform(['zeugma', 'figure of speech'])
       >>> from sklearn.metrics.pairwise import cosine_similarity
-      >>> cosine_similarity(v1, v2)[0][0]
+      >>> cosine_similarity(embeddings)[0, 1]
       -0.028218582
 
+Fine-tuning embeddings
+----------------------
 
 Embeddings fine tuning (training embeddings with preloaded values) will be implemented in the future.
