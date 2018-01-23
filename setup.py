@@ -4,13 +4,13 @@ from distutils.core import setup
 
 setup(name='zeugma',
       packages=['zeugma'],
-      version='0.19',
+      version='0.2',
       license='MIT',
       description='Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) compatible with scikit-learn Pipeline',
       author='Nicolas Thiebaut',
       author_email='nkthiebaut@gmail.com',
       url='https://github.com/nkthiebaut',
-      download_url='https://github.com/nkthiebaut/zeugma/archive/0.19.tar.gz',
+      download_url='https://github.com/nkthiebaut/zeugma/archive/0.2.tar.gz',
       keywords=['embeddings'],
       classifiers=[],
       setup_requires=[
@@ -25,6 +25,6 @@ setup(name='zeugma',
           'scikit_learn>=0.19.1',
           'fastText',
       ],
-      dependency_links=['git+git://github.com/facebookresearch/fastText.git']
+      dependency_links=['git+https://github.com/facebookresearch/fastText.git']
      )
 

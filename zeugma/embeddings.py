@@ -62,7 +62,8 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
         definition and integrate a sklearn.Pipeline object """
         if self.trainable:
             self.train(x)
-            self.save()
+            if self.model_path is not None:
+                self.save()
         return self
 
     def transform(self, texts):
@@ -175,24 +176,28 @@ class Word2VecTransformer(EmbeddingTransformer):
 GLOVE_EMBEDDINGS_URL = "http://nlp.stanford.edu/data/glove.6B.zip"
 
 
-class GloveTransformer(EmbeddingTransformer):
+class GloVeTransformer(EmbeddingTransformer):
     """ Glove embeddings class, transforms a corpus to its Glove
     representation matrix"""
 
-    def __init__(self, model_path):
-        super().__init__(model_path=model_path)
-        self.embeddings_dict = dict()
-        with open(self.model_file, encoding="utf8") as glove_stream:
-            for line in glove_stream:
-                values = line.split()
-                word = values[0]
-                value = np.asarray(values[1:], dtype='float32')
-                self.embeddings_dict[word] = value
+    def load_pretrained_model(self):
+        """ Load a pre-trained GloVe model """
+        if self.model_path.endswith('.txt'):
+            embeddings_dict = dict()
+            with open(self.model_path, encoding="utf8") as glove_stream:
+                for line in glove_stream:
+                    values = line.split()
+                    word = values[0]
+                    value = np.asarray(values[1:], dtype='float32')
+                    embeddings_dict[word] = value
+        else:
+            raise NameError('Unknown file extension.')
+        return embeddings_dict
 
     def transform_sentence(self, text):
         """ Return the mean of the words embeddings """
-        size = len(self.embeddings_dict['the'])
-        embeddings = (self.embeddings_dict.get(w, np.zeros(size)) for w in text)
+        size = len(self.model['the'])
+        embeddings = (self.model.get(w, np.zeros(size)) for w in text)
         text_vector = reduce(np.add, embeddings, np.zeros(size))
         return text_vector / len(text)
 
