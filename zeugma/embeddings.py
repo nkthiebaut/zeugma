@@ -41,16 +41,16 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
                     raise NotImplementedError('trainable is set to True but ' +\
                             self.__class__.__name__ + ' does not implement ' + \
                                          method + ' method.')
-        elif model_path is None:
-            raise ValueError(self.__class__.__name__ + ' constructor needs ' + \
-                             'least a model_path, or "trainable" set to True')
-        elif not hasattr(self, 'load_pretrained_model'):
-            raise NotImplementedError(self.__class__.__name__ + \
-                                      ' does not support pretrained models.')
         else:
-            if not os.path.exists(model_path):
-                raise FileNotFoundError(self.__class__.__name__ +
-                                        ' model file not found')
+            if model_path is None:
+                model_path = MODELS_DIR
+            if not hasattr(self, 'load_pretrained_model'):
+                raise NotImplementedError(self.__class__.__name__ + \
+                                          ' does not support pretrained models.')
+            else:
+                if not os.path.exists(model_path):
+                    raise FileNotFoundError(self.__class__.__name__ +
+                                            ' model file not found')
             self.model = self.load_pretrained_model()
 
     @abstractmethod
