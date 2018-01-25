@@ -19,6 +19,8 @@ from gensim.models import KeyedVectors, Word2Vec
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from zeugma.conf import MODELS_DIR
+
 
 FASTTEXT_URL = "https://s3-us-west-1.amazonaws.com/fasttext-vectors/" +\
     "wiki.simple.zip" # English light version: 2.4 GB
@@ -102,7 +104,7 @@ class FastTextTransformer(EmbeddingTransformer):
         return fastText.load_model(self.model_path)
 
     @staticmethod
-    def download_embeddings(model_path, url=FASTTEXT_URL):
+    def download_embeddings(model_path=MODELS_DIR, url=FASTTEXT_URL):
         """ Download and unzip fasttext pre-trained embeddings """
         zip_file = os.path.join(os.path.dirname(model_path),
                                 'wiki.simple.zip')
@@ -162,7 +164,8 @@ class Word2VecTransformer(EmbeddingTransformer):
         return np.mean(self.model.wv[text], axis=0)
     
     @staticmethod
-    def download_embeddings(model_path, url=W2V_EMBEDDINGS_URL, outfile=None):
+    def download_embeddings(model_path=MODELS_DIR, url=W2V_EMBEDDINGS_URL, 
+                            outfile=None):
         """ Download Word2vec pre-computed embeddings from Eyaler github repo """
         gz_file = os.path.join(os.path.dirname(model_path),
                                'GoogleNews-vectors-negative300.bin')
@@ -202,7 +205,8 @@ class GloVeTransformer(EmbeddingTransformer):
         return text_vector / len(text)
 
     @staticmethod
-    def download_glove_embeddings(model_path, url=GLOVE_EMBEDDINGS_URL):
+    def download_glove_embeddings(model_path=MODELS_DIR, 
+                                  url=GLOVE_EMBEDDINGS_URL):
         """ Download GloVe pre-computed embeddings from Stanford website """
         model_dir = os.path.dirname(model_path)
         zip_file = os.path.join(model_dir, 'glove.6B.zip')
