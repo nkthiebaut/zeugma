@@ -19,6 +19,7 @@ from gensim.models import KeyedVectors, Word2Vec
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
+from zeugma.logger import PACKAGE_LOGGER as logger
 from zeugma.conf import MODELS_DIR
 
 
@@ -43,6 +44,8 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
                                          method + ' method.')
         else:
             if model_path is None:
+                logger.info('Embedding is not trainable and model_path not' +\
+                            'specified, using default model location:' + MODELS_DIR)
                 model_path = MODELS_DIR
             if not hasattr(self, 'load_pretrained_model'):
                 raise NotImplementedError(self.__class__.__name__ + \
@@ -104,7 +107,7 @@ class FastTextTransformer(EmbeddingTransformer):
         return fastText.load_model(self.model_path)
 
     @staticmethod
-    def download_embeddings(model_path=MODELS_DIR, url=FASTTEXT_URL):
+    def download_embeddings(model_path=MODELS_DIR + os.sep, url=FASTTEXT_URL):
         """ Download and unzip fasttext pre-trained embeddings """
         zip_file = os.path.join(os.path.dirname(model_path),
                                 'wiki.simple.zip')
@@ -164,7 +167,7 @@ class Word2VecTransformer(EmbeddingTransformer):
         return np.mean(self.model.wv[text], axis=0)
     
     @staticmethod
-    def download_embeddings(model_path=MODELS_DIR, url=W2V_EMBEDDINGS_URL, 
+    def download_embeddings(model_path=MODELS_DIR + os.sep, url=W2V_EMBEDDINGS_URL,
                             outfile=None):
         """ Download Word2vec pre-computed embeddings from Eyaler github repo """
         gz_file = os.path.join(os.path.dirname(model_path),
@@ -205,7 +208,7 @@ class GloVeTransformer(EmbeddingTransformer):
         return text_vector / len(text)
 
     @staticmethod
-    def download_glove_embeddings(model_path=MODELS_DIR, 
+    def download_glove_embeddings(model_path=MODELS_DIR + os.sep,
                                   url=GLOVE_EMBEDDINGS_URL):
         """ Download GloVe pre-computed embeddings from Stanford website """
         model_dir = os.path.dirname(model_path)
