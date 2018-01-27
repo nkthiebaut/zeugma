@@ -113,7 +113,8 @@ class FastTextTransformer(EmbeddingTransformer):
                                 'wiki.simple.zip')
         urllib.request.urlretrieve(url, zip_file)
         with zipfile.ZipFile(zip_file, "r") as zip_ref:
-            zip_ref.extractall(os.path.dirname(model_path))
+            zip_ref.extract('wiki.simple.bin', os.path.dirname(model_path))
+        os.remove(zip_file)
 
 
 W2V_EMBEDDINGS_URL = "https://github.com/eyaler/word2vec-slim/raw/master/" +\

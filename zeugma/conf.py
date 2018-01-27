@@ -11,3 +11,5 @@ MODELS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__fil
 if not os.path.exists(MODELS_DIR):
     logger.info(MODELS_DIR + ' not found, creating it.')
     os.mkdir(MODELS_DIR)
+
+OOV_TAG = '<oov>'  # Out-Of-Vocabulary tag for rare words

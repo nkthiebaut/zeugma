@@ -7,6 +7,7 @@ Created on the 05/01/18
 import pytest
 import numpy as np
 
+
 @pytest.fixture(scope='module')
 def sample_corpus():
     """ Return a sample corpus in a numpy.array """
@@ -15,3 +16,4 @@ def sample_corpus():
               'This is a second text with a weird word',
               "Et c'est un troisieme text avec un accent"]
     return np.array(corpus)
+
