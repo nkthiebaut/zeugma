@@ -6,3 +6,4 @@ Created on the 05/01/18
 """
 
 from .embeddings import FastTextTransformer, Word2VecTransformer, GloVeTransformer
+from .texttransformers import RareWordsTagger, ItemSelector, TextStats
