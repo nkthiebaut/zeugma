@@ -21,11 +21,11 @@ class RareWordsTagger(BaseEstimator, TransformerMixin):
         self.kept_words = None
 
     def fit(self, texts, y=None):
-        all_tokens = [token for t in texts for token in t.split()]
-        logger.info('Vocabulary size before rare words tagging: ' +
-                    str(len(set(all_tokens))))
+        all_tokens = (token for t in texts for token in t.split())
         for w in all_tokens:
             self.frequencies[w] += 1
+        logger.info('Vocabulary size before rare words tagging: ' +
+                    str(len(self.frequencies)))
         self.kept_words = {word for word, frequency in self.frequencies.items()
                            if frequency >= self.min_count}
         logger.info('Vocabulary size after rare words tagging: ' +
