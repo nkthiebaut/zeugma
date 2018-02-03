@@ -33,8 +33,8 @@ class RareWordsTagger(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, texts):
-        texts = [' '.join([w if w in self.kept_words else self.oov_tag
-                           for w in t.split()])
+        texts = [' '.join((w if w in self.kept_words else self.oov_tag
+                           for w in t.split()))
                  for t in texts]
         return texts
 
