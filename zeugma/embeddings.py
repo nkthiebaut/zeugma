@@ -68,6 +68,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
         """ Transform corpus from single text transformation method """
         if hasattr(self, 'transform_sentence'):
             return np.array([self.transform_sentence(t) for t in texts])
+            # TODO: parallelize this method with multiprocessing
         else:
             raise NotImplementedError()
 
@@ -180,7 +181,7 @@ class GloVeTransformer(EmbeddingTransformer):
         return text_vector / len(text)
 
     @staticmethod
-    def download_glove_embeddings(model_path=MODELS_DIR + os.sep,
+    def download_embeddings(model_path=MODELS_DIR + os.sep,
                                   url=GLOVE_EMBEDDINGS_URL):
         """ Download GloVe pre-computed embeddings from Stanford website """
         model_dir = os.path.dirname(model_path)
