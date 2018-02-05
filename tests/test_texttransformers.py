@@ -4,7 +4,6 @@ Created on the 01/26/2018
 @author: Nicolas Thiebaut
 @email: nicolas@visage.jobs
 """
-import pandas as pd
 from zeugma.texttransformers import RareWordsTagger, ItemSelector, TextStats
 
 

@@ -12,7 +12,7 @@ from logging import Formatter
 LOG_FORMAT = (
     "%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d")
 
-DEFAULT_LOG_LEVEL = logging.DEBUG
+DEFAULT_LOG_LEVEL = logging.WARNING
 
 
 DEFAULT_HANDLER = StreamHandler()
