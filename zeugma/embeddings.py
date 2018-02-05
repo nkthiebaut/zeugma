@@ -19,7 +19,7 @@ import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
 from zeugma.logger import PACKAGE_LOGGER as logger
-from zeugma.conf import MODELS_DIR
+from zeugma.conf import MODELS_DIR, DEFAULT_PRETRAINED_EMBEDDINGS
 
 
 class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
@@ -39,12 +39,12 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
             if model_path is None:
                 logger.info('Embedding is not trainable and model_path not' +\
                             'specified, using default model location:' + MODELS_DIR)
-                self.model_path = MODELS_DIR
+                self.model_path = os.path.join(MODELS_DIR, self.__class__.default_model_path)
             if not hasattr(self, 'load_pretrained_model'):
                 raise NotImplementedError(self.__class__.__name__ + \
                                           ' does not support pretrained models.')
             else:
-                if not os.path.exists(model_path):
+                if not os.path.exists(self.model_path):
                     raise FileNotFoundError(self.__class__.__name__ +
                                             ' model file not found')
             self.model = self.load_pretrained_model()
@@ -89,10 +89,6 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
                                   'supported for ' + self.__class__.__name__)
 
 
-W2V_EMBEDDINGS_URL = "https://github.com/eyaler/word2vec-slim/raw/master/" +\
-                     "GoogleNews-vectors-negative300-SLIM.bin.gz"
-
-
 class Word2VecTransformer(EmbeddingTransformer):
     """ Word2Vec embeddings class, transforms a corpus to its w2v
     representation matrix
@@ -104,6 +100,10 @@ class Word2VecTransformer(EmbeddingTransformer):
     Or the lighter version (300k words instead of 3M) here:
     https://github.com/eyaler/word2vec-slim/raw/master/GoogleNews-vectors-negative300-SLIM.bin.gz
     """
+
+    default_model_path = os.path.join(MODELS_DIR,
+                                      DEFAULT_PRETRAINED_EMBEDDINGS['Word2Vec']['filename'])
+
     def load_pretrained_model(self):
         """ Load a pre-trained word2vec model """
         if self.model_path.endswith('.bin'):
@@ -140,7 +140,8 @@ class Word2VecTransformer(EmbeddingTransformer):
         return np.mean(self.model.wv[text], axis=0)
     
     @staticmethod
-    def download_embeddings(model_path=MODELS_DIR + os.sep, url=W2V_EMBEDDINGS_URL,
+    def download_embeddings(model_path=MODELS_DIR + os.sep,
+                            url=DEFAULT_PRETRAINED_EMBEDDINGS['Word2Vec']['url'],
                             outfile=None):
         """ Download Word2vec pre-computed embeddings from Eyaler github repo """
         gz_file = os.path.join(os.path.dirname(model_path),
@@ -152,12 +153,12 @@ class Word2VecTransformer(EmbeddingTransformer):
             shutil.copyfileobj(f_in, f_out)
 
 
-GLOVE_EMBEDDINGS_URL = "http://nlp.stanford.edu/data/glove.6B.zip"
-
-
 class GloVeTransformer(EmbeddingTransformer):
     """ Glove embeddings class, transforms a corpus to its Glove
     representation matrix"""
+
+    default_model_path = os.path.join(MODELS_DIR,
+                                      DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['filename'])
 
     def load_pretrained_model(self):
         """ Load a pre-trained GloVe model """
@@ -182,7 +183,7 @@ class GloVeTransformer(EmbeddingTransformer):
 
     @staticmethod
     def download_embeddings(model_path=MODELS_DIR + os.sep,
-                                  url=GLOVE_EMBEDDINGS_URL):
+                            url=DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['url']):
         """ Download GloVe pre-computed embeddings from Stanford website """
         model_dir = os.path.dirname(model_path)
         zip_file = os.path.join(model_dir, 'glove.6B.zip')

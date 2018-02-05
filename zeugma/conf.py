@@ -14,5 +14,14 @@ if not os.path.exists(MODELS_DIR):
 
 OOV_TAG = '<oov>'  # Out-Of-Vocabulary tag for rare words
 
+W2V_EMBEDDINGS_URL = "https://github.com/eyaler/word2vec-slim/raw/master/" +\
+                     "GoogleNews-vectors-negative300-SLIM.bin.gz"
 
-DEFAULT_PRETRAINED_EMBEDDINGS = {'Word2Vec': ()}
+GLOVE_EMBEDDINGS_URL = "http://nlp.stanford.edu/data/glove.6B.zip"
+
+DEFAULT_PRETRAINED_EMBEDDINGS = {
+    'Word2Vec': {'url': W2V_EMBEDDINGS_URL,
+                 'filename': 'GoogleNews-vectors-negative300-SLIM.bin'},
+    'GloVe': {'url': GLOVE_EMBEDDINGS_URL,
+              'filename': 'glove.6B.300d.txt'}
+}
