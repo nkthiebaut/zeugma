@@ -13,3 +13,6 @@ if not os.path.exists(MODELS_DIR):
     os.mkdir(MODELS_DIR)
 
 OOV_TAG = '<oov>'  # Out-Of-Vocabulary tag for rare words
+
+
+DEFAULT_PRETRAINED_EMBEDDINGS = {'Word2Vec': ()}
