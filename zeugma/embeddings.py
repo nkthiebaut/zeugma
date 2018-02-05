@@ -39,7 +39,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
             if model_path is None:
                 logger.info('Embedding is not trainable and model_path not' +\
                             'specified, using default model location:' + MODELS_DIR)
-                model_path = MODELS_DIR
+                self.model_path = MODELS_DIR
             if not hasattr(self, 'load_pretrained_model'):
                 raise NotImplementedError(self.__class__.__name__ + \
                                           ' does not support pretrained models.')
