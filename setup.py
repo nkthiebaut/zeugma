@@ -26,4 +26,5 @@ setup(name='zeugma',
           'tensorflow>=1.5.0',
           'keras>=2.1.3',
       ],
+      tests_require=['pytest>=3.3.2'],
       )
