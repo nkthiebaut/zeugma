@@ -23,6 +23,7 @@ setup(name='zeugma',
           'pandas>=0.20.3',
           'gensim>=3.2.0',
           'scikit_learn>=0.19.1',
-          'keras',
+          'tensorflow>=1.5.0',
+          'keras>=2.1.3',
       ],
       )
