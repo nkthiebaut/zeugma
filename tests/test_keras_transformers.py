@@ -4,12 +4,13 @@ Created on the 02/05/2018
 @author: Nicolas Thiebaut
 @email: nicolas@visage.jobs
 """
+import os
 import pytest
 from sklearn.pipeline import make_pipeline
 from zeugma.keras_transformers import TextsToSequences, Padder
 
 
-@pytest.mark.skip(reason="Travis does'nt work with those tests")
+@pytest.mark.skipif(os.environ.get("TRAVIS") == "true", reason="Travis does'nt work with those tests")
 class TestTextTransformers(object):
     """ Test Keras transformers """
 

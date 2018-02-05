@@ -5,11 +5,13 @@ Created on the 21/11/17
 @email: nicolas@visage.jobs
 """
 
+import os
 import pytest
 import numpy as np
 from zeugma import Word2VecTransformer
 
 
+@pytest.mark.skipif(os.environ.get("TRAVIS") == "true", reason="Travis does'nt work with those tests")
 class TestEmbeddings(object):
     """ Test embedding transformers """
     @pytest.fixture(scope='class')
