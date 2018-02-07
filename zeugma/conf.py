@@ -21,7 +21,7 @@ GLOVE_EMBEDDINGS_URL = "http://nlp.stanford.edu/data/glove.6B.zip"
 
 DEFAULT_PRETRAINED_EMBEDDINGS = {
     'Word2Vec': {'url': W2V_EMBEDDINGS_URL,
-                 'filename': 'GoogleNews-vectors-negative300-SLIM.bin'},
+                 'filename': 'GoogleNews-vectors-negative300.bin'},
     'GloVe': {'url': GLOVE_EMBEDDINGS_URL,
               'filename': 'glove.6B.300d.txt'}
 }

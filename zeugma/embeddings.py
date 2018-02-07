@@ -145,7 +145,7 @@ class Word2VecTransformer(EmbeddingTransformer):
                             outfile=None):
         """ Download Word2vec pre-computed embeddings from Eyaler github repo """
         gz_file = os.path.join(os.path.dirname(model_path),
-                               'GoogleNews-vectors-negative300.bin')
+                               'GoogleNews-vectors-negative300.bin.gz')
         urllib.request.urlretrieve(url, gz_file)
         if outfile is None:
             outfile = gz_file[:-3]
