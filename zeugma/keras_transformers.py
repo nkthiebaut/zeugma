@@ -14,7 +14,7 @@ from sklearn.base import BaseEstimator
 class TextsToSequences(Tokenizer, BaseEstimator, TransformerMixin):
     """ Sklearn transformer to convert texts to indices list
     (e.g. [["the cute cat"], ["the dog"]] -> [[1, 2, 3], [1, 4]])"""
-    # TODO: write tests
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -39,7 +39,6 @@ class Padder(BaseEstimator, TransformerMixin):
         maximum index known by the Padder, if a higher index is met during
         transform it is transformed to a 0
     """
-    # TODO: write tests
 
     def __init__(self, max_length=500):
         self.max_length = max_length
