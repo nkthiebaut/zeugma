@@ -10,7 +10,6 @@ from sklearn.pipeline import make_pipeline
 from zeugma.keras_transformers import TextsToSequences, Padder
 
 
-@pytest.mark.skipif(os.environ.get("TRAVIS") == "true", reason="Travis does'nt work with those tests")
 class TestTextTransformers(object):
     """ Test Keras transformers """
 

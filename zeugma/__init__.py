@@ -5,6 +5,6 @@ Created on the 05/01/18
 @email: nkthiebaut@gmail.com
 """
 
-from .embeddings import Word2VecTransformer, GloVeTransformer
+from .embeddings import FastTextTransformer, Word2VecTransformer, GloVeTransformer
 from .texttransformers import RareWordsTagger, ItemSelector, TextStats
 from .keras_transformers import TextsToSequences, Padder

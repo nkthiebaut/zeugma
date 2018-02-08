@@ -14,6 +14,7 @@ import shutil
 import urllib
 import zipfile
 
+import fastText
 from gensim.models import KeyedVectors, Word2Vec
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -87,6 +88,33 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
         """ Method to save EmbeddingTransformers when trainable """
         raise NotImplementedError('Saving trained embeddings is not yet ' +\
                                   'supported for ' + self.__class__.__name__)
+
+
+class FastTextTransformer(EmbeddingTransformer):
+
+    default_model_path = os.path.join(MODELS_DIR,
+                                      DEFAULT_PRETRAINED_EMBEDDINGS['FastText']['filename'])
+
+    """ Facebook FastText embeddings,
+    see https://github.com/facebookresearch/fastText for a description """
+    def transform_sentence(self, text):
+        """ Return the sum of character n-grams representation """
+        return self.model.get_sentence_vector(text)
+
+    def load_pretrained_model(self):
+        """ fastText model loader """
+        return fastText.load_model(self.model_path)
+
+    @staticmethod
+    def download_embeddings(model_path=MODELS_DIR + os.sep,
+                            url=DEFAULT_PRETRAINED_EMBEDDINGS['FastText']['url']):
+        """ Download and unzip fasttext pre-trained embeddings """
+        zip_file = os.path.join(os.path.dirname(model_path),
+                                'wiki.simple.zip')
+        urllib.request.urlretrieve(url, zip_file)
+        with zipfile.ZipFile(zip_file, "r") as zip_ref:
+            zip_ref.extract('wiki.simple.bin', os.path.dirname(model_path))
+        os.remove(zip_file)
 
 
 class Word2VecTransformer(EmbeddingTransformer):

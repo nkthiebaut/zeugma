@@ -9,7 +9,6 @@ import pytest
 from zeugma.texttransformers import RareWordsTagger, ItemSelector, TextStats
 
 
-@pytest.mark.skipif(os.environ.get("TRAVIS") == "true", reason="Travis does'nt work with those tests")
 class TestTextTransformers(object):
     """ Test text transformers """
 
