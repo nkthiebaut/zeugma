@@ -61,6 +61,27 @@ class ItemSelector(BaseEstimator, TransformerMixin):
         """ Return selected items """
         return data_dict[self.key]
 
+    
+class Namer(BaseEstimator, TransformerMixin):
+    """Return a single-entry dictionary with key given by the attribute 
+    'key' and value is the input data
+
+    Parameters
+    ----------
+    key : hashable, required
+        The key corresponding to the output name.
+    """
+    def __init__(self, key):
+        self.key = key
+
+    def fit(self, x, y=None):
+        """ Necessary fit method to include transformer in a sklearn.Pipeline"""
+        return self
+
+    def transform(self, X):
+        """ Return data in a dictionary with key provided at instantiation """
+        return {self.key: X} 
+    
 
 class TextStats(FunctionTransformer):
     """Extract features from each document for DictVectorizer"""
