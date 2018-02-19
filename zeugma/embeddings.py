@@ -205,9 +205,10 @@ class GloVeTransformer(EmbeddingTransformer):
     def transform_sentence(self, text):
         """ Return the mean of the words embeddings """
         size = len(self.model['the'])
-        embeddings = (self.model.get(w, np.zeros(size)) for w in text.split())
+        tokens = text.split()
+        embeddings = (self.model.get(tok, np.zeros(size)) for tok in tokens)
         text_vector = reduce(np.add, embeddings, np.zeros(size))
-        return text_vector / len(text)
+        return text_vector / len(tokens)
 
     @staticmethod
     def download_embeddings(model_path=MODELS_DIR + os.sep,
