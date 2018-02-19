@@ -187,6 +187,11 @@ class GloVeTransformer(EmbeddingTransformer):
 
     default_model_path = os.path.join(MODELS_DIR,
                                       DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['filename'])
+
+    def __init__(self, aggregation='average', **kwargs):
+        super().__init__(**kwargs)
+        self.aggregation = aggregation
+
     def load_pretrained_model(self):
         """ Load a pre-trained GloVe model """
         if self.model_path.endswith('.txt'):
@@ -203,12 +208,20 @@ class GloVeTransformer(EmbeddingTransformer):
 
     def transform_sentence(self, text):
         """ Return the mean of the words embeddings """
-        # TODO: add possibility for sum or average
         size = len(self.model['the'])
         tokens = text.split()
         embeddings = (self.model.get(tok, np.zeros(size)) for tok in tokens)
-        text_vector = reduce(np.add, embeddings, np.zeros(size))
-        return text_vector / len(tokens)
+        if self.aggregation == 'average':
+            text_vector = reduce(np.add, embeddings, np.zeros(size)) / len(tokens)
+        elif self.aggregation == 'sum':
+            text_vector = reduce(np.add, embeddings, np.zeros(size))
+        elif self.aggregation == 'minmax':
+            maxi = reduce(np.maximum, embeddings, np.zeros(size))
+            mini = reduce(np.minimum, embeddings, np.zeros(size))
+            text_vector = np.concatenate([maxi, mini])
+        else:
+            raise ValueError('Unknown embeddings aggregation mode')
+        return text_vector
 
     @staticmethod
     def download_embeddings(model_path=MODELS_DIR + os.sep,
