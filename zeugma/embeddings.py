@@ -162,7 +162,7 @@ class Word2VecTransformer(EmbeddingTransformer):
                     raise TypeError
                 raw_text = raw_text.split()
             return list(filter(lambda x: x in self.model.wv.vocab, raw_text))
-        text = preprocess_text(self, text)
+        text = preprocess_text(text)
         if not text:
             return np.zeros(self.model.vector_size)
         return np.mean(self.model.wv[text], axis=0)
@@ -187,7 +187,6 @@ class GloVeTransformer(EmbeddingTransformer):
 
     default_model_path = os.path.join(MODELS_DIR,
                                       DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['filename'])
-
     def load_pretrained_model(self):
         """ Load a pre-trained GloVe model """
         if self.model_path.endswith('.txt'):
@@ -204,6 +203,7 @@ class GloVeTransformer(EmbeddingTransformer):
 
     def transform_sentence(self, text):
         """ Return the mean of the words embeddings """
+        # TODO: add possibility for sum or average
         size = len(self.model['the'])
         tokens = text.split()
         embeddings = (self.model.get(tok, np.zeros(size)) for tok in tokens)
