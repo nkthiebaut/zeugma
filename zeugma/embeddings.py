@@ -155,13 +155,13 @@ class Word2VecTransformer(EmbeddingTransformer):
 
     def transform_sentence(self, text):
         """ Compute mean w2v vector for the input text"""
-        def preprocess_text(self, text):
+        def preprocess_text(raw_text):
             """ Prepare text for Gensim model, excluding unknown words"""
-            if not isinstance(text, list):
-                if not isinstance(text, str):
+            if not isinstance(raw_text, list):
+                if not isinstance(raw_text, str):
                     raise TypeError
-                text = text.split()
-            return list(filter(lambda x: x in self.model.wv.vocab, text))
+                raw_text = raw_text.split()
+            return list(filter(lambda x: x in self.model.wv.vocab, raw_text))
         text = preprocess_text(self, text)
         if not text:
             return np.zeros(self.model.vector_size)
@@ -205,7 +205,7 @@ class GloVeTransformer(EmbeddingTransformer):
     def transform_sentence(self, text):
         """ Return the mean of the words embeddings """
         size = len(self.model['the'])
-        embeddings = (self.model.get(w, np.zeros(size)) for w in text)
+        embeddings = (self.model.get(w, np.zeros(size)) for w in text.split())
         text_vector = reduce(np.add, embeddings, np.zeros(size))
         return text_vector / len(text)
 
