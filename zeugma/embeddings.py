@@ -207,7 +207,7 @@ class GloVeTransformer(EmbeddingTransformer):
         return embeddings_dict
 
     def transform_sentence(self, text):
-        """ Return the mean of the words embeddings """
+        """ Return an aggregate of the words embeddings """
         size = len(self.model['the'])
         tokens = text.split()
         embeddings = (self.model.get(tok, np.zeros(size)) for tok in tokens)
@@ -227,10 +227,14 @@ class GloVeTransformer(EmbeddingTransformer):
     def download_embeddings(model_path=MODELS_DIR + os.sep,
                             url=DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['url']):
         """ Download GloVe pre-computed embeddings from Stanford website """
-        model_dir = os.path.dirname(model_path)
-        zip_file = os.path.join(model_dir, 'glove.6B.zip')
-        urllib.request.urlretrieve(url, zip_file)
-        with zipfile.ZipFile(zip_file, "r") as zip_ref:
-            zip_ref.extractall(model_dir)
+        if os.path.exists(GloVeTransformer.default_model_path):
+            logger.info('Embeddings already present in' + str(GloVeTransformer.default_model_path) +
+                        ', skipping download')
+        else:
+            model_dir = os.path.dirname(model_path)
+            zip_file = os.path.join(model_dir, 'glove.6B.zip')
+            urllib.request.urlretrieve(url, zip_file)
+            with zipfile.ZipFile(zip_file, "r") as zip_ref:
+                zip_ref.extractall(model_dir)
 
     #TODO: add GloVe training with the glove_python library
