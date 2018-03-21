@@ -4,7 +4,10 @@ Created on the 05/01/18
 @author: Nicolas Thiebaut
 @email: nkthiebaut@gmail.com
 """
+from pkg_resources import get_distribution
 
 from .embeddings import FastTextTransformer, Word2VecTransformer, GloVeTransformer
 from .texttransformers import RareWordsTagger, ItemSelector, TextStats
 from .keras_transformers import TextsToSequences, Padder
+
+__version__ = get_distribution('zeugma').version
