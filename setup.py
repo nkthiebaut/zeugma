@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
+import sys
+
+try:
+    import cython
+except ImportError:
+    print('cython is required during installation')
+    sys.exit(1)
 
 setup(name='zeugma',
       packages=['zeugma'],
