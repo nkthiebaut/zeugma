@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 import sys
 
 try:
@@ -21,6 +21,7 @@ setup(name='zeugma',
       keywords=['embeddings'],
       classifiers=[],
       setup_requires=[
+          'pytest-runner',
           'numpy>=1.13.3',
           'Cython>=0.27.3',
       ],
