@@ -12,3 +12,4 @@ from zeugma.conf import MODELS_DIR
 
 def test_models_dir_existence():
     assert os.path.exists(MODELS_DIR)
+

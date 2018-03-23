@@ -212,7 +212,7 @@ class GloVeTransformer(EmbeddingTransformer):
         tokens = text.split()
         embeddings = (self.model.get(tok, np.zeros(size)) for tok in tokens)
         if self.aggregation == 'average':
-            text_vector = reduce(np.add, embeddings, np.zeros(size)) / len(tokens)
+            text_vector = reduce(np.add, embeddings, np.zeros(size)) / max(len(tokens), 1)
         elif self.aggregation == 'sum':
             text_vector = reduce(np.add, embeddings, np.zeros(size))
         elif self.aggregation == 'minmax':
