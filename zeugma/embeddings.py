@@ -14,7 +14,7 @@ import shutil
 import urllib
 import zipfile
 
-import fastText
+
 from gensim.models import KeyedVectors, Word2Vec
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
@@ -22,6 +22,11 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from zeugma.logger import PACKAGE_LOGGER as logger
 from zeugma.conf import MODELS_DIR, DEFAULT_PRETRAINED_EMBEDDINGS
 
+try:
+    import fastText
+except ImportError:
+    logger.warning('Fast text is not installed, the corresponding embedding '
+                   'cannot be used.')
 
 class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
     """ Abstract text vectorizer class """
@@ -238,3 +243,5 @@ class GloVeTransformer(EmbeddingTransformer):
                 zip_ref.extractall(model_dir)
 
     #TODO: add GloVe training with the glove_python library
+
+    
