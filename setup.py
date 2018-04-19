@@ -11,13 +11,13 @@ except ImportError:
 
 setup(name='zeugma',
       packages=['zeugma'],
-      version='0.38',
+      version='0.39',
       license='MIT',
       description="Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) compatible with scikit-learn Pipeline",
       author='Nicolas Thiebaut',
       author_email='nkthiebaut@gmail.com',
       url='https://github.com/nkthiebaut',
-      download_url='https://github.com/nkthiebaut/zeugma/archive/0.38.tar.gz',
+      download_url='https://github.com/nkthiebaut/zeugma/archive/0.39.tar.gz',
       keywords=['embeddings'],
       classifiers=[],
       setup_requires=[
