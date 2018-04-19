@@ -6,7 +6,7 @@ Created on the 05/01/18
 """
 from pkg_resources import get_distribution
 
-from .embeddings import FastTextTransformer, GloVeTransformer, Word2VecTransormer
+from .embeddings import FastTextTransformer, GloVeTransformer, Word2VecTransformer
 from .texttransformers import RareWordsTagger, ItemSelector, TextStats
 from .keras_transformers import TextsToSequences, Padder
 
