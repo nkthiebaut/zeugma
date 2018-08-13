@@ -17,3 +17,12 @@ def sample_corpus():
               "Et c'est un troisieme text avec un accent"]
     return np.array(corpus)
 
+
+@pytest.fixture(scope='module')
+def sample_corpus_embedding():
+    """ Return a sample corpus in a numpy.array """
+    corpus = ['Human a computer',
+              'Survey gwiurgergwggreg',
+              'Survey',
+              "Et c'est un troisieme text avec un accent"]
+    return np.array(corpus)

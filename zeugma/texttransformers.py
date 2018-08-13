@@ -8,7 +8,7 @@ from collections import defaultdict
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import FunctionTransformer
 from zeugma.conf import OOV_TAG
-from zeugma.logger import PACKAGE_LOGGER as logger
+from zeugma.logger import package_logger as logger
 
 
 class RareWordsTagger(BaseEstimator, TransformerMixin):

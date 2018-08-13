@@ -4,244 +4,70 @@ Created on the 05/01/18
 @author: Nicolas Thiebaut
 @email: nkthiebaut@gmail.com
 """
+from typing import List
 
-from abc import ABCMeta, abstractmethod
-from functools import reduce
-import gzip
-from multiprocessing import cpu_count
-import os
-import shutil
-import urllib
-import zipfile
-
-
-from gensim.models import KeyedVectors, Word2Vec
+import gensim.downloader as api
+from gensim.models.keyedvectors import Word2VecKeyedVectors
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from zeugma.logger import PACKAGE_LOGGER as logger
-from zeugma.conf import MODELS_DIR, DEFAULT_PRETRAINED_EMBEDDINGS
+from zeugma.logger import package_logger as logger
+from zeugma.conf import DEFAULT_PRETRAINED_EMBEDDINGS
 
-try:
-    import fastText
-except ImportError:
-    logger.warning('Fast text is not installed, the corresponding embedding '
-                   'cannot be used.')
 
-class EmbeddingTransformer(BaseEstimator, TransformerMixin, metaclass=ABCMeta):
-    """ Abstract text vectorizer class """
+class EmbeddingTransformer(BaseEstimator, TransformerMixin):
+    """ Text vectorizer class """
 
-    def __init__(self, model_path=None, trainable=False, **kwargs):
-        self.trainable = trainable
-        self.model_path = model_path
-        self.params = dict(kwargs)
-        if trainable:
-            for method in ['train', 'save']:
-                if not hasattr(self, method):
-                    raise NotImplementedError('trainable is set to True but ' +\
-                            self.__class__.__name__ + ' does not implement ' + \
-                                         method + ' method.')
-        else:
-            if model_path is None:
-                logger.info('Embedding is not trainable and model_path not' +\
-                            'specified, using default model location:' + MODELS_DIR)
-                self.model_path = os.path.join(MODELS_DIR, self.__class__.default_model_path)
-            if not hasattr(self, 'load_pretrained_model'):
-                raise NotImplementedError(self.__class__.__name__ + \
-                                          ' does not support pretrained models.')
+    def __init__(self, model: str ='glove', aggregation: str ='average'):
+        if isinstance(model, str):
+            if model in DEFAULT_PRETRAINED_EMBEDDINGS.keys():
+                model_gensim_name = DEFAULT_PRETRAINED_EMBEDDINGS[model]
+                self.model = api.load(model_gensim_name)
+            elif model in api.info()['models'].keys():
+                self.model = api.load(model)
             else:
-                if not os.path.exists(self.model_path):
-                    raise FileNotFoundError(self.__class__.__name__ +
-                                            ' model file not found')
-            self.model = self.load_pretrained_model()
-
-    @abstractmethod
-    def transform_sentence(self, text):
-        """ Child classes have to implement this method that will be used
-        to transform corpora """
-        pass
-
-    def fit(self, x, y=None):
-        """ Has to define fit method to conform scikit-learn Transformer
-        definition and integrate a sklearn.Pipeline object """
-        if self.trainable:
-            self.train(x)
-            if self.model_path is not None:
-                self.save()
-        return self
-
-    def transform(self, texts):
-        """ Transform corpus from single text transformation method """
-        if hasattr(self, 'transform_sentence'):
-            return np.array([self.transform_sentence(t) for t in texts])
-            # TODO: parallelize this method with multiprocessing
+                raise KeyError('Unknown pretrained model name. Available models are: ' +
+                               ", ".join(api.info()['models'].keys()))
+            logger.info('Loaded model keyed vectors: ' + model)
+        elif isinstance(model, Word2VecKeyedVectors):
+            self.model = model
+            logger.info('Loaded model keyed vectors.')
         else:
-            raise NotImplementedError()
-
-    @abstractmethod
-    def load_pretrained_model(self):
-        """ Child classes have to implement this method that will be used
-        to load a saved model """
-        pass
-
-    def train(self, corpus):
-        """ Embedding training method for trainable EmbeddingTransformers """
-        raise NotImplementedError('Training is not yet supported for ' +\
-                                  self.__class__.__name__)
-
-    def save(self):
-        """ Method to save EmbeddingTransformers when trainable """
-        raise NotImplementedError('Saving trained embeddings is not yet ' +\
-                                  'supported for ' + self.__class__.__name__)
-
-
-class FastTextTransformer(EmbeddingTransformer):
-
-    default_model_path = os.path.join(MODELS_DIR,
-                                      DEFAULT_PRETRAINED_EMBEDDINGS['FastText']['filename'])
-
-    """ Facebook FastText embeddings,
-    see https://github.com/facebookresearch/fastText for a description """
-    def transform_sentence(self, text):
-        """ Return the sum of character n-grams representation """
-        return self.model.get_sentence_vector(text)
-
-    def load_pretrained_model(self):
-        """ fastText model loader """
-        return fastText.load_model(self.model_path)
-
-    @staticmethod
-    def download_embeddings(model_path=MODELS_DIR + os.sep,
-                            url=DEFAULT_PRETRAINED_EMBEDDINGS['FastText']['url']):
-        """ Download and unzip fasttext pre-trained embeddings """
-        zip_file = os.path.join(os.path.dirname(model_path),
-                                'wiki.simple.zip')
-        urllib.request.urlretrieve(url, zip_file)
-        with zipfile.ZipFile(zip_file, "r") as zip_ref:
-            zip_ref.extract('wiki.simple.bin', os.path.dirname(model_path))
-        os.remove(zip_file)
-
-
-class Word2VecTransformer(EmbeddingTransformer):
-    """ Word2Vec embeddings class, transforms a corpus to its w2v
-    representation matrix
-
-    Notes
-    -----
-    Google news pre-trained Word2vec download link:
-    https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing
-    Or the lighter version (300k words instead of 3M) here:
-    https://github.com/eyaler/word2vec-slim/raw/master/GoogleNews-vectors-negative300-SLIM.bin.gz
-    """
-
-    default_model_path = os.path.join(MODELS_DIR,
-                                      DEFAULT_PRETRAINED_EMBEDDINGS['Word2Vec']['filename'])
-
-    def load_pretrained_model(self):
-        """ Load a pre-trained word2vec model """
-        if self.model_path.endswith('.bin'):
-            w2v = KeyedVectors.load_word2vec_format(self.model_path, binary=True)
-        elif self.model_path.endswith('.vec'):
-            w2v = KeyedVectors.load_word2vec_format(self.model_path, binary=False)
-        else:
-            raise NameError('Unknown file extension.')
-        return w2v
-
-    def train(self, corpus):
-        default_params = dict(size=100, window=2, min_count=5,
-                              workers=cpu_count())
-        params = {k: self.params.get(k, default) for k, default in
-                  default_params.items()}
-        x = np.array([text.split() for text in corpus])
-        self.model = Word2Vec(x, **params)
-
-    def save(self):
-        self.model.save(self.model_path)
+            raise TypeError('Input pre-trained model should be a string or a gensim Word2VecKeyedVectors object')
+        self.aggregation = aggregation
 
     def transform_sentence(self, text):
-        """ Compute mean w2v vector for the input text"""
-        def preprocess_text(raw_text):
+        """ Compute an aggregate embedding vector for the input text """
+        def preprocess_text(raw_text: str) -> List[str]:
             """ Prepare text for Gensim model, excluding unknown words"""
             if not isinstance(raw_text, list):
                 if not isinstance(raw_text, str):
                     raise TypeError
                 raw_text = raw_text.split()
-            return list(filter(lambda x: x in self.model.wv.vocab, raw_text))
-        text = preprocess_text(text)
-        if not text:
+            return list(filter(lambda x: x in self.model.vocab, raw_text))
+        tokens = preprocess_text(text)
+
+        if not tokens:
             return np.zeros(self.model.vector_size)
-        return np.mean(self.model.wv[text], axis=0)
-    
-    @staticmethod
-    def download_embeddings(model_path=MODELS_DIR + os.sep,
-                            url=DEFAULT_PRETRAINED_EMBEDDINGS['Word2Vec']['url'],
-                            outfile=None):
-        """ Download Word2vec pre-computed embeddings from Eyaler github repo """
-        gz_file = os.path.join(os.path.dirname(model_path),
-                               'GoogleNews-vectors-negative300.bin.gz')
-        urllib.request.urlretrieve(url, gz_file)
-        if outfile is None:
-            outfile = gz_file[:-3]
-        with gzip.open(gz_file, 'rb') as f_in, open(outfile, 'wb') as f_out:
-            shutil.copyfileobj(f_in, f_out)
 
-
-class GloVeTransformer(EmbeddingTransformer):
-    """ Glove embeddings class, transforms a corpus to its Glove
-    representation matrix"""
-
-    default_model_path = os.path.join(MODELS_DIR,
-                                      DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['filename'])
-
-    def __init__(self, aggregation='average', **kwargs):
-        super().__init__(**kwargs)
-        self.aggregation = aggregation
-
-    def load_pretrained_model(self):
-        """ Load a pre-trained GloVe model """
-        if self.model_path.endswith('.txt'):
-            embeddings_dict = dict()
-            with open(self.model_path, encoding="utf8") as glove_stream:
-                for line in glove_stream:
-                    values = line.split()
-                    word = values[0]
-                    value = np.asarray(values[1:], dtype='float32')
-                    embeddings_dict[word] = value
-        else:
-            raise NameError('Unknown file extension.')
-        return embeddings_dict
-
-    def transform_sentence(self, text):
-        """ Return an aggregate of the words embeddings """
-        size = len(self.model['the'])
-        tokens = text.split()
-        embeddings = (self.model.get(tok, np.zeros(size)) for tok in tokens)
         if self.aggregation == 'average':
-            text_vector = reduce(np.add, embeddings, np.zeros(size)) / max(len(tokens), 1)
+            text_vector = np.mean(self.model[tokens], axis=0)
         elif self.aggregation == 'sum':
-            text_vector = reduce(np.add, embeddings, np.zeros(size))
+            text_vector = np.sum(self.model[tokens], axis=0)
         elif self.aggregation == 'minmax':
-            maxi = reduce(np.maximum, embeddings, np.zeros(size))
-            mini = reduce(np.minimum, embeddings, np.zeros(size))
+            maxi = np.max(self.model[tokens], axis=0)
+            mini = np.min(self.model[tokens], axis=0)
             text_vector = np.concatenate([maxi, mini])
         else:
-            raise ValueError('Unknown embeddings aggregation mode')
+            raise ValueError('Unknown embeddings aggregation mode: ' + self.aggregation)
         return text_vector
 
-    @staticmethod
-    def download_embeddings(model_path=MODELS_DIR + os.sep,
-                            url=DEFAULT_PRETRAINED_EMBEDDINGS['GloVe']['url']):
-        """ Download GloVe pre-computed embeddings from Stanford website """
-        if os.path.exists(GloVeTransformer.default_model_path):
-            logger.info('Embeddings already present in' + str(GloVeTransformer.default_model_path) +
-                        ', skipping download')
-        else:
-            model_dir = os.path.dirname(model_path)
-            zip_file = os.path.join(model_dir, 'glove.6B.zip')
-            urllib.request.urlretrieve(url, zip_file)
-            with zipfile.ZipFile(zip_file, "r") as zip_ref:
-                zip_ref.extractall(model_dir)
+    def fit(self, x, y=None):
+        """ Has to define fit method to conform scikit-learn Transformer
+        definition and integrate a sklearn.Pipeline object """
+        return self
 
-    #TODO: add GloVe training with the glove_python library
-
-    
+    def transform(self, texts):
+        """ Transform corpus from single text transformation method """
+        # TODO: parallelize this method with multiprocessing
+        return np.array([self.transform_sentence(t) for t in texts])

@@ -18,6 +18,6 @@ DEFAULT_LOG_LEVEL = logging.WARNING
 DEFAULT_HANDLER = StreamHandler()
 DEFAULT_HANDLER.setFormatter(Formatter(LOG_FORMAT))
 
-PACKAGE_LOGGER = logging.getLogger("zeugma")
-PACKAGE_LOGGER.setLevel(DEFAULT_LOG_LEVEL)
-PACKAGE_LOGGER.addHandler(DEFAULT_HANDLER)
+package_logger = logging.getLogger("zeugma")
+package_logger.setLevel(DEFAULT_LOG_LEVEL)
+package_logger.addHandler(DEFAULT_HANDLER)

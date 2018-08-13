@@ -4,13 +4,12 @@ Created on the 02/05/2018
 @author: Nicolas Thiebaut
 @email: nicolas@visage.jobs
 """
-import os
 import pytest
 from sklearn.pipeline import make_pipeline
 from zeugma.keras_transformers import TextsToSequences, Padder
 
 
-class TestTextTransformers(object):
+class TestKerasTransformers(object):
     """ Test Keras transformers """
 
     @pytest.fixture(scope='class')

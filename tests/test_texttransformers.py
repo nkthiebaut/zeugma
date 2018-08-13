@@ -4,8 +4,6 @@ Created on the 01/26/2018
 @author: Nicolas Thiebaut
 @email: nicolas@visage.jobs
 """
-import os
-import pytest
 from zeugma.texttransformers import RareWordsTagger, ItemSelector, TextStats
 
 
@@ -13,8 +11,8 @@ class TestTextTransformers(object):
     """ Test text transformers """
 
     def test_rare_words_tagger(self, sample_corpus):
-        """ Test word2vec training and transformation on a basic corpus """
-        rare_tagger = RareWordsTagger(min_count=4)
+        """ Test rare words tagging on a basic corpus """
+        rare_tagger = RareWordsTagger(min_count=2)
         tag = rare_tagger.oov_tag
         out = rare_tagger.fit_transform(sample_corpus)
         assert len(out) == len(sample_corpus)
