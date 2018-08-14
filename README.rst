@@ -5,7 +5,7 @@
 .. |Python36| image:: https://img.shields.io/badge/python-3.6-blue.svg
 .. _Python36: https://badge.fury.io/py/scikit-learn
 
-.. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master
+.. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
 .. _TravisBuild: https://travis-ci.org/nkthiebaut/zeugma
 
 .. |Coveralls| image:: https://coveralls.io/repos/github/nkthiebaut/zeugma/badge.svg?branch=master
