@@ -8,7 +8,7 @@
 .. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
 .. _TravisBuild: https://travis-ci.org/nkthiebaut/zeugma
 
-.. |Coveralls| image:: https://coveralls.io/repos/github/nkthiebaut/zeugma/badge.svg?branch=master
+.. |Coveralls| image:: https://img.shields.io/coveralls/github/nkthiebaut/zeugma.svg
 .. _Coveralls: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
 
 ======
