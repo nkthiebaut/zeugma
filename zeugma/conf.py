@@ -8,7 +8,7 @@ Created on the 05/01/18
 OOV_TAG = '<oov>'  # Out-Of-Vocabulary tag for rare words
 
 DEFAULT_PRETRAINED_EMBEDDINGS = {
-    'FastText': 'fasttext-wiki-news-subwords-300',
-    'Word2Vec': 'word2vec-google-news-300',
-    'GloVe': 'glove-twitter-25',
+    'fasttext': 'fasttext-wiki-news-subwords-300',
+    'word2vec': 'word2vec-google-news-300',
+    'glove': 'glove-twitter-25',
 }

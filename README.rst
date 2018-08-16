@@ -15,7 +15,8 @@
 Zeugma
 ======
 
-Unified framework for word embeddings (Word2Vec, GloVe, FastText, ...) use in machine learning pipelines, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_.
+📝 Natural language processing (NLP) utils: word embeddings (Word2Vec, GloVe, FastText, ...) and preprocessing transformers, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_. 🛠
+
 
 Installation
 ============

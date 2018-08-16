@@ -20,6 +20,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
 
     def __init__(self, model: str ='glove', aggregation: str ='average'):
         if isinstance(model, str):
+            model = model.lower()
             if model in DEFAULT_PRETRAINED_EMBEDDINGS.keys():
                 model_gensim_name = DEFAULT_PRETRAINED_EMBEDDINGS[model]
                 self.model = api.load(model_gensim_name)
