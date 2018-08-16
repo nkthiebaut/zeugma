@@ -33,15 +33,14 @@ all come with a default embedding URL) or trained.
 Pretrained embeddings
 --------------------------------
 
-As an illustrative example the **cosine similarity** of the sentences *zeugma* and *figure of speech* is computed using the GloVeTransformer
-with **downloaded embeddings** (default URL is used here)::
+As an illustrative example the cosine similarity of the sentences *what is zeugma* and *a figure of speech* is computed using the `GloVe <https://nlp.stanford.edu/projects/glove/>`_ pretrained embeddings.::
 
     >>> from zeugma.embeddings import EmbeddingTransformer
     >>> glove = EmbeddingTransformer('glove')
-    >>> embeddings = glove.transform(['zeugma', 'figure of speech'])
+    >>> embeddings = glove.transform(['what is zeugma', 'a figure of speech'])
     >>> from sklearn.metrics.pairwise import cosine_similarity
     >>> cosine_similarity(embeddings)[0, 1]
-    0.32840478
+    0.8721696
 
 Training embeddings
 -------------------

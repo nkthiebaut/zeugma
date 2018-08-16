@@ -27,7 +27,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
             elif model in api.info()['models'].keys():
                 self.model = api.load(model)
             else:
-                raise KeyError('Unknown pretrained model name. Available models are: ' +
+                raise KeyError('Unknown pretrained model name:' + model + '. Available models are: ' +
                                ", ".join(api.info()['models'].keys()))
             logger.info('Loaded model keyed vectors: ' + model)
         elif isinstance(model, Word2VecKeyedVectors):
