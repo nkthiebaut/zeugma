@@ -1,6 +1,6 @@
 .. -*- mode: rst -*-
 
-|Python36|_ |TravisBuild|_ |Coveralls|_
+|Python36| |TravisBuild| |Coveralls| |ReadTheDocs|
 
 .. |Python36| image:: https://img.shields.io/badge/python-3.6-blue.svg
 .. _Python36: https://badge.fury.io/py/scikit-learn
@@ -11,8 +11,8 @@
 .. |Coveralls| image:: https://img.shields.io/coveralls/github/nkthiebaut/zeugma.svg
 .. _Coveralls: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
 
-.. |ReadTheDocs| image:: https://readthedocs.org/projects/zeugma/badge/?version=latest&style=flat
-.. _ReadTheDocs: https://readthedocs.org/projects/zeugma/
+.. |ReadTheDocs| image:: https://readthedocs.org/projects/docs/badge/?version=latest
+.. _ReadTheDocs: https://docs.readthedocs.io/en/latest/?badge=latest
 
 ======
 Zeugma
