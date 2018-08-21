@@ -11,27 +11,32 @@
 .. |Coveralls| image:: https://img.shields.io/coveralls/github/nkthiebaut/zeugma.svg
 .. _Coveralls: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
 
+.. |ReadTheDocs| image:: https://zeugma.readthedocs.io/en/latest/?badge=latest
+.. _ReadTheDocs: https://readthedocs.org/projects/zeugma/
+
 ======
 Zeugma
 ======
+
+.. inclusion-marker-do-not-remove
 
 📝 Natural language processing (NLP) utils: word embeddings (Word2Vec, GloVe, FastText, ...) and preprocessing transformers, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_. 🛠
 
 
 Installation
-============
+------------
 
 Install package with ``pip install zeugma``.
 
 
 Examples
-========
+--------
 
 Embedding transformers can be either be used with downloaded embeddings (they
 all come with a default embedding URL) or trained.
 
 Pretrained embeddings
---------------------------------
+*********************
 
 As an illustrative example the cosine similarity of the sentences *what is zeugma* and *a figure of speech* is computed using the `GloVe <https://nlp.stanford.edu/projects/glove/>`_ pretrained embeddings.::
 
@@ -43,12 +48,12 @@ As an illustrative example the cosine similarity of the sentences *what is zeugm
     0.8721696
 
 Training embeddings
--------------------
+*******************
 
 To train your own Word2Vec embeddings use the `Gensim sklearn API <https://radimrehurek.com/gensim/sklearn_api/w2vmodel.html>`_.
 
 
 Fine-tuning embeddings
-----------------------
+**********************
 
 Embeddings fine tuning (training embeddings with preloaded values) will be implemented in the future.

@@ -6,3 +6,4 @@ htmlcov/
 *.csv
 .ipynb_checkpoints
 *.png
+docs/_build
