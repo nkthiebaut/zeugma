@@ -11,8 +11,8 @@
 .. |Coveralls| image:: https://img.shields.io/coveralls/github/nkthiebaut/zeugma.svg
 .. _Coveralls: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
 
-.. |ReadTheDocs| image:: https://readthedocs.org/projects/docs/badge/?version=latest
-.. _ReadTheDocs: https://docs.readthedocs.io/en/latest/?badge=latest
+.. |ReadTheDocs| image:: https://readthedocs.org/projects/zeugma/badge/ 
+.. _ReadTheDocs: https://readthedocs.org/projects/zeugma/
 
 ======
 Zeugma
