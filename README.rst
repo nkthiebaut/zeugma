@@ -3,16 +3,16 @@
 |Python36| |TravisBuild| |Coveralls| |ReadTheDocs|
 
 .. |Python36| image:: https://img.shields.io/badge/python-3.6-blue.svg
-.. _Python36: https://badge.fury.io/py/scikit-learn
+    :target: https://badge.fury.io/py/scikit-learn
 
 .. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
-.. _TravisBuild: https://travis-ci.org/nkthiebaut/zeugma
+    :target: https://travis-ci.org/nkthiebaut/zeugma
 
 .. |Coveralls| image:: https://img.shields.io/coveralls/github/nkthiebaut/zeugma.svg
-.. _Coveralls: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
+    :target: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/zeugma/badge/ 
-.. _ReadTheDocs: https://readthedocs.org/projects/zeugma/
+    :target: https://readthedocs.org/projects/zeugma/
 
 ======
 Zeugma
