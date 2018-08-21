@@ -4,7 +4,7 @@ Created on the 05/01/18
 @author: Nicolas Thiebaut
 @email: nkthiebaut@gmail.com
 """
-from typing import List
+from typing import Iterable, List, Union
 
 import gensim.downloader as api
 from gensim.models.keyedvectors import Word2VecKeyedVectors
@@ -17,6 +17,8 @@ from zeugma.conf import DEFAULT_PRETRAINED_EMBEDDINGS
 
 class EmbeddingTransformer(BaseEstimator, TransformerMixin):
     """ Text vectorizer class """
+    model: Word2VecKeyedVectors
+    aggregation: str
 
     def __init__(self, model: str ='glove', aggregation: str ='average'):
         if isinstance(model, str):
@@ -27,7 +29,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
             elif model in api.info()['models'].keys():
                 self.model = api.load(model)
             else:
-                raise KeyError('Unknown pretrained model name:' + model + '. Available models are: ' +
+                raise KeyError('Unknown pre-trained model name: ' + model + '. Available models are: ' +
                                ", ".join(api.info()['models'].keys()))
             logger.info('Loaded model keyed vectors: ' + model)
         elif isinstance(model, Word2VecKeyedVectors):
@@ -37,13 +39,13 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
             raise TypeError('Input pre-trained model should be a string or a gensim Word2VecKeyedVectors object')
         self.aggregation = aggregation
 
-    def transform_sentence(self, text):
+    def transform_sentence(self, text: Union[Iterable, str]) -> np.array:
         """ Compute an aggregate embedding vector for the input text """
         def preprocess_text(raw_text: str) -> List[str]:
             """ Prepare text for Gensim model, excluding unknown words"""
             if not isinstance(raw_text, list):
                 if not isinstance(raw_text, str):
-                    raise TypeError
+                    raise TypeError('Input should be a str or a list of str, got ' + str(type(raw_text)))
                 raw_text = raw_text.split()
             return list(filter(lambda x: x in self.model.vocab, raw_text))
         tokens = preprocess_text(text)
@@ -63,12 +65,12 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
             raise ValueError('Unknown embeddings aggregation mode: ' + self.aggregation)
         return text_vector
 
-    def fit(self, x, y=None):
+    def fit(self, x: Iterable[Iterable], y: Iterable = None) -> BaseEstimator:
         """ Has to define fit method to conform scikit-learn Transformer
         definition and integrate a sklearn.Pipeline object """
         return self
 
-    def transform(self, texts):
+    def transform(self, texts: Iterable[str]) -> Iterable[Iterable]:
         """ Transform corpus from single text transformation method """
         # TODO: parallelize this method with multiprocessing
         return np.array([self.transform_sentence(t) for t in texts])
