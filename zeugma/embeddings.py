@@ -4,10 +4,12 @@ Created on the 05/01/18
 @author: Nicolas Thiebaut
 @email: nkthiebaut@gmail.com
 """
+import os
 from typing import Iterable, List, Union
 
 import gensim.downloader as api
 from gensim.models.keyedvectors import Word2VecKeyedVectors
+
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
@@ -16,11 +18,13 @@ from zeugma.conf import DEFAULT_PRETRAINED_EMBEDDINGS
 
 
 class EmbeddingTransformer(BaseEstimator, TransformerMixin):
-    """ Text vectorizer class """
+    """ Text vectorizer class: load pre-trained embeddings and transform texts into vectors """
     model: Word2VecKeyedVectors
     aggregation: str
 
-    def __init__(self, model: str ='glove', aggregation: str ='average'):
+    def __init__(self, model: str = 'glove', aggregation: str = 'average'):
+        """ Load pre-trained embeddings, either locally if model is a local file path or a Word2VecKeyedVector object,
+        or downloaded from the gensim API if a string is provided """
         if isinstance(model, str):
             model = model.lower()
             if model in DEFAULT_PRETRAINED_EMBEDDINGS.keys():
@@ -28,6 +32,12 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
                 self.model = api.load(model_gensim_name)
             elif model in api.info()['models'].keys():
                 self.model = api.load(model)
+            elif os.path.exists(model):
+                logger.info('Loading local model')
+                self.model = Word2VecKeyedVectors.load(model)
+                if not isinstance(self.model, Word2VecKeyedVectors):
+                    raise TypeError("The input model should be a Word2VecKeyedVectors object but it is a " +
+                                    str(type(self.model)) + " object")
             else:
                 raise KeyError('Unknown pre-trained model name: ' + model + '. Available models are: ' +
                                ", ".join(api.info()['models'].keys()))
@@ -40,9 +50,9 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
         self.aggregation = aggregation
 
     def transform_sentence(self, text: Union[Iterable, str]) -> np.array:
-        """ Compute an aggregate embedding vector for the input text """
+        """ Compute an aggregate embedding vector for an input str or iterable of str """
         def preprocess_text(raw_text: str) -> List[str]:
-            """ Prepare text for Gensim model, excluding unknown words"""
+            """ Prepare text for the model, excluding unknown words"""
             if not isinstance(raw_text, list):
                 if not isinstance(raw_text, str):
                     raise TypeError('Input should be a str or a list of str, got ' + str(type(raw_text)))
