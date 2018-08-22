@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from setuptools import setup
-import sys
 
 setup(name='zeugma',
       packages=['zeugma'],
