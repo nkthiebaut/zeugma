@@ -6,4 +6,6 @@ htmlcov/
 *.csv
 .ipynb_checkpoints
 *.png
+venv/
+*.eggs
 docs/_build
