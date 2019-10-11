@@ -6,13 +6,13 @@ Created on the 02/05/2018
 """
 import pytest
 from sklearn.pipeline import make_pipeline
-from zeugma.keras_transformers import TextsToSequences, Padder
+from zeugma.keras_transformers import Padder, TextsToSequences
 
 
 class TestKerasTransformers(object):
     """ Test Keras transformers """
 
-    @pytest.fixture(scope='class')
+    @pytest.fixture(scope="class")
     def sequencer(self):
         """ Instantiate trainable word2vec vectorizer """
         return TextsToSequences(num_words=5)

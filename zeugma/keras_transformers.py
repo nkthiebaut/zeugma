@@ -4,11 +4,11 @@ Created on the 02/05/2018
 @author: Nicolas Thiebaut
 @email: nicolas@visage.jobs
 """
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
 import numpy as np
-from sklearn.pipeline import TransformerMixin
+from keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
 from sklearn.base import BaseEstimator
+from sklearn.pipeline import TransformerMixin
 
 
 class TextsToSequences(Tokenizer, BaseEstimator, TransformerMixin):

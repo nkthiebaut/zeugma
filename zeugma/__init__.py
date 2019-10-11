@@ -6,8 +6,8 @@ Created on the 05/01/18
 """
 from pkg_resources import get_distribution
 
-from .embeddings import EmbeddingTransformer
-from .texttransformers import RareWordsTagger, ItemSelector, TextStats
-from .keras_transformers import TextsToSequences, Padder
+from .embeddings import EmbeddingTransformer  # noqa
+from .texttransformers import RareWordsTagger, ItemSelector, TextStats  # noqa
+from .keras_transformers import TextsToSequences, Padder  # noqa
 
-__version__ = get_distribution('zeugma').version
+__version__ = get_distribution("zeugma").version

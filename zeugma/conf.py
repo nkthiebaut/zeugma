@@ -5,10 +5,10 @@ Created on the 05/01/18
 @email: nkthiebaut@gmail.com
 """
 
-OOV_TAG = '<oov>'  # Out-Of-Vocabulary tag for rare words
+OOV_TAG = "<oov>"  # Out-Of-Vocabulary tag for rare words
 
 DEFAULT_PRETRAINED_EMBEDDINGS = {
-    'fasttext': 'fasttext-wiki-news-subwords-300',
-    'word2vec': 'word2vec-google-news-300',
-    'glove': 'glove-twitter-25',
+    "fasttext": "fasttext-wiki-news-subwords-300",
+    "word2vec": "word2vec-google-news-300",
+    "glove": "glove-twitter-25",
 }

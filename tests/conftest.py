@@ -4,25 +4,29 @@ Created on the 05/01/18
 @author: Nicolas Thiebaut
 @email: nkthiebaut@gmail.com
 """
-import pytest
 import numpy as np
+import pytest
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def sample_corpus():
     """ Return a sample corpus in a numpy.array """
-    corpus = ['Here a first example text',
-              'This is a second text with a weird word gwiurgergwggreg',
-              'This is a second text with a weird word',
-              "Et c'est un troisieme text avec un accent"]
+    corpus = [
+        "Here a first example text",
+        "This is a second text with a weird word gwiurgergwggreg",
+        "This is a second text with a weird word",
+        "Et c'est un troisieme text avec un accent",
+    ]
     return np.array(corpus)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def sample_corpus_embedding():
     """ Return a sample corpus in a numpy.array """
-    corpus = ['Human a computer',
-              'Survey gwiurgergwggreg',
-              'Survey',
-              "Et c'est un troisieme text avec un accent"]
+    corpus = [
+        "Human a computer",
+        "Survey gwiurgergwggreg",
+        "Survey",
+        "Et c'est un troisieme text avec un accent",
+    ]
     return np.array(corpus)

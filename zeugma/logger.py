@@ -4,10 +4,9 @@ Created on the 01/25/2018
 @author: Nicolas Thiebaut
 @email: nicolas@visage.jobs
 """
-from logging import Formatter, getLogger, StreamHandler, WARNING
+from logging import WARNING, Formatter, StreamHandler, getLogger
 
-LOG_FORMAT = (
-    "%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d")
+LOG_FORMAT = "%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d"
 
 DEFAULT_LOG_LEVEL = WARNING
 
