@@ -5,6 +5,7 @@ Created on the 01/26/2018
 @email: nicolas@visage.jobs
 """
 from collections import defaultdict
+
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import FunctionTransformer
 from zeugma.conf import OOV_TAG
@@ -24,18 +25,24 @@ class RareWordsTagger(BaseEstimator, TransformerMixin):
         all_tokens = (token for t in texts for token in t.split())
         for w in all_tokens:
             self.frequencies[w] += 1
-        logger.info('Vocabulary size before rare words tagging: ' +
-                    str(len(self.frequencies)))
-        self.kept_words = {word for word, frequency in self.frequencies.items()
-                           if frequency >= self.min_count}
-        logger.info('Vocabulary size after rare words tagging: ' +
-                    str(len(self.kept_words)))
+        logger.info(
+            "Vocabulary size before rare words tagging: " + str(len(self.frequencies))
+        )
+        self.kept_words = {
+            word
+            for word, frequency in self.frequencies.items()
+            if frequency >= self.min_count
+        }
+        logger.info(
+            "Vocabulary size after rare words tagging: " + str(len(self.kept_words))
+        )
         return self
 
     def transform(self, texts):
-        texts = [' '.join((w if w in self.kept_words else self.oov_tag
-                           for w in t.split()))
-                 for t in texts]
+        texts = [
+            " ".join((w if w in self.kept_words else self.oov_tag for w in t.split()))
+            for t in texts
+        ]
         return texts
 
 
@@ -50,6 +57,7 @@ class ItemSelector(BaseEstimator, TransformerMixin):
     key : hashable, required
         The key corresponding to the desired value in a mappable.
     """
+
     def __init__(self, key):
         self.key = key
 
@@ -61,9 +69,9 @@ class ItemSelector(BaseEstimator, TransformerMixin):
         """ Return selected items """
         return data_dict[self.key]
 
-    
+
 class Namer(BaseEstimator, TransformerMixin):
-    """Return a single-entry dictionary with key given by the attribute 
+    """Return a single-entry dictionary with key given by the attribute
     'key' and value is the input data
 
     Parameters
@@ -71,6 +79,7 @@ class Namer(BaseEstimator, TransformerMixin):
     key : hashable, required
         The key corresponding to the output name.
     """
+
     def __init__(self, key):
         self.key = key
 
@@ -80,14 +89,17 @@ class Namer(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
         """ Return data in a dictionary with key provided at instantiation """
-        return {self.key: X} 
-    
+        return {self.key: X}
+
 
 class TextStats(FunctionTransformer):
     """Extract features from each document for DictVectorizer"""
+
     def __init__(self):
         def extract_stats(corpus):
-            return [{'length': len(text),
-                    'num_sentences': text.count('.')}
-                    for text in corpus]
+            return [
+                {"length": len(text), "num_sentences": text.count(".")}
+                for text in corpus
+            ]
+
         super().__init__(extract_stats, validate=False)

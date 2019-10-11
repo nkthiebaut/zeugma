@@ -1,6 +1,6 @@
 .. -*- mode: rst -*-
 
-|Python36| |TravisBuild| |Coveralls| |ReadTheDocs| |LGTM|
+|Python36| |TravisBuild| |Coveralls| |ReadTheDocs| |LGTM| |Black|
 
 .. |Python36| image:: https://img.shields.io/badge/python-3.6-blue.svg
     :target: https://badge.fury.io/py/scikit-learn
@@ -16,6 +16,9 @@
 
 .. |LGTM| image:: https://img.shields.io/lgtm/grade/python/g/nkthiebaut/zeugma.svg?logo=lgtm
     :target: https://lgtm.com/projects/g/nkthiebaut/zeugma/context:python
+
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
 
 ======
 Zeugma
@@ -60,3 +63,37 @@ Fine-tuning embeddings
 **********************
 
 Embeddings fine tuning (training embeddings with preloaded values) will be implemented in the future.
+
+
+Other examples
+**************
+
+Additional examples using Zeugma can be found `in some posts of my blog <https://data4thought.com>`_.
+
+
+Contribute
+----------
+
+Feel free to fork this repo and submit a Pull Request. 
+
+Development
+***********
+
+The development workflow for this repo is the following:
+1. create a virtual environment:
+```python 
+python -m venv venv
+source venv/bin/activate
+```
+2. install required packages: `pip install -r requirements.txt`
+3. install the pre-commit hooks: `pre-commit install`
+4. run the test suite with: `pytest` from the root folder
+
+Distribution via PyPI
+*********************
+
+To upload a new version to PyPI, simply:
+1. tag your new version on git: `git tag -a x.x -m "my tag message"`
+2. update the download_url field in the `setup.py` file
+3. commit, push the code and the tag (`git push origin x.x`), and make a PR
+4. once the updated code is present in master run `python3 setup.py sdist bdist_wheel` from the root of the package to distribute it.
