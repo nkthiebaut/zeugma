@@ -60,3 +60,8 @@ Fine-tuning embeddings
 **********************
 
 Embeddings fine tuning (training embeddings with preloaded values) will be implemented in the future.
+
+
+Other examples
+**************
+Additional examples using Zeugma can be found `in some posts of my blog <https://data4thought.com>`_.
