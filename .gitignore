@@ -9,3 +9,6 @@ htmlcov/
 venv/
 *.eggs
 docs/_build
+build/
+.mypy_cache/
+dist/
