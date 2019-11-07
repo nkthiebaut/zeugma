@@ -1,9 +1,3 @@
-# -*- coding:utf-8 -*-
-"""
-Created on the 05/01/18
-@author: Nicolas Thiebaut
-@email: nkthiebaut@gmail.com
-"""
 import os
 from typing import Iterable, List, Union
 
@@ -36,12 +30,10 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
         if isinstance(model, str):
             model = model.lower()
             if model in DEFAULT_PRETRAINED_EMBEDDINGS.keys():
-                model_gensim_name = DEFAULT_PRETRAINED_EMBEDDINGS[
-                    model
-                ]  # pragma: no cover
-                self.model = api.load(model_gensim_name)  # pragma: no cover
+                model_gensim_name = DEFAULT_PRETRAINED_EMBEDDINGS[model]
+                self.model = api.load(model_gensim_name)
             elif model in api.info()["models"].keys():
-                self.model = api.load(model)
+                self.model = api.load(model)  # pragma: no cover
             elif os.path.exists(model):
                 logger.info("Loading local model")
                 self.model = Word2VecKeyedVectors.load(model)
@@ -55,7 +47,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
                     f"Unknown pre-trained model name: {model}. Available models are"
                     + ", ".join(api.info()["models"].keys())
                 )
-            logger.info("Loaded model keyed vectors: " + model)  # pragma: no cover
+            logger.info("Loaded model keyed vectors: " + model)
         elif isinstance(model, Word2VecKeyedVectors):
             self.model = model
             logger.info("Loaded model keyed vectors.")
