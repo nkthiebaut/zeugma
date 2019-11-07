@@ -101,6 +101,7 @@ To upload a new version to PyPI, simply:
 Building documentation
 **********************
 
+To build the documentation locally simply run ``make html`` from the ``docs`` folder.
 
 
 
