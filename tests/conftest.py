@@ -24,9 +24,9 @@ def sample_corpus():
 def sample_corpus_embedding():
     """ Return a sample corpus in a numpy.array """
     corpus = [
-        "Human a computer",
-        "Survey gwiurgergwggreg",
-        "Survey",
-        "Et c'est un troisieme text avec un accent",
+        "human computer",
+        "interface gwiurgergwggreg",
+        "interface",
+        "Et c'est un troisième text avec un accent",
     ]
     return np.array(corpus)

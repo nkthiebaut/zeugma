@@ -28,6 +28,11 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
         or a Word2VecKeyedVector object, or downloaded from the gensim API if a string
         is provided.
         """
+        if aggregation not in {"average", "sum", "minmax"}:
+            raise ValueError(
+                f"Unknown embeddings aggregation mode: {aggregation}, the available "
+                "ones are: average, sum, or minmax."
+            )
         if isinstance(model, str):
             model = model.lower()
             if model in DEFAULT_PRETRAINED_EMBEDDINGS.keys():
@@ -60,6 +65,9 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
                 "Word2VecKeyedVectors object"
             )
         self.aggregation = aggregation
+        self.embedding_dimension = self.model.vector_size
+        if self.aggregation == "minmax":
+            self.embedding_dimension *= 2
 
     def transform_sentence(self, text: Union[Iterable, str]) -> np.array:
         """ Compute an aggregate embedding vector for an input str or iterable of str.
@@ -78,19 +86,16 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
         tokens = preprocess_text(text)
 
         if not tokens:
-            return np.zeros(self.model.vector_size)
+            return np.zeros(self.embedding_dimension, dtype=np.float32)
 
         if self.aggregation == "average":
-            text_vector = np.mean(self.model[tokens], axis=0)
+            return np.mean(self.model[tokens], axis=0)
         elif self.aggregation == "sum":
-            text_vector = np.sum(self.model[tokens], axis=0)
+            return np.sum(self.model[tokens], axis=0)
         elif self.aggregation == "minmax":
             maxi = np.max(self.model[tokens], axis=0)
             mini = np.min(self.model[tokens], axis=0)
-            text_vector = np.concatenate([maxi, mini])
-        else:
-            raise ValueError("Unknown embeddings aggregation mode: " + self.aggregation)
-        return text_vector
+            return np.append(mini, maxi)
 
     def fit(self, x: Iterable[Iterable], y: Iterable = None) -> BaseEstimator:
         """ Has to define fit method to conform scikit-learn Transformer

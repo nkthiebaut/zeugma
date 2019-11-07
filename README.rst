@@ -1,9 +1,9 @@
 .. -*- mode: rst -*-
 
-|Python36| |TravisBuild| |Coveralls| |ReadTheDocs| |LGTM| |Black|
+|PythonVersions| |TravisBuild| |Coveralls| |ReadTheDocs| |LGTM| |Black|
 
-.. |Python36| image:: https://img.shields.io/badge/python-3.6-blue.svg
-    :target: https://badge.fury.io/py/scikit-learn
+.. |PythonVersions| image:: https://img.shields.io/pypi/pyversions/zeugma.svg
+    :target: https://github.com/nkthiebaut/zeugma
 
 .. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
     :target: https://travis-ci.org/nkthiebaut/zeugma
@@ -68,6 +68,8 @@ Embeddings fine tuning (training embeddings with preloaded values) will be imple
 Other examples
 **************
 
+Usage examples are present in the ``examples`` folder.
+
 Additional examples using Zeugma can be found `in some posts of my blog <https://data4thought.com>`_.
 
 
@@ -95,3 +97,11 @@ To upload a new version to PyPI, simply:
 2. update the download_url field in the ``setup.py`` file
 3. commit, push the code and the tag (``git push origin x.x``), and make a PR
 4. once the updated code is present in master run ``python setup.py sdist bdist_wheel`` from the root of the package to distribute it.
+
+Building documentation
+**********************
+
+To build the documentation locally simply run ``make html`` from the ``docs`` folder.
+
+
+
