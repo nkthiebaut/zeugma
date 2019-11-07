@@ -17,7 +17,12 @@ setup(
     author_email="nkthiebaut@gmail.com",
     url="https://github.com/nkthiebaut",
     download_url="https://github.com/nkthiebaut/zeugma/archive/0.45.tar.gz",
-    classifiers=[],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+    ],
     setup_requires=["pytest-runner", "numpy>=1.13.3", "Cython>=0.27.3"],
     install_requires=[
         "numpy>=1.13.3",
