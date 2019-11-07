@@ -107,6 +107,6 @@ To build the documentation locally simply run ``make html`` from the ``docs`` fo
 
 Bonus: what's a zeugma?
 -----------------------
-It's a figure of speech: `The act of using a word, particularly an adjective or verb, to apply to more than one noun when its sense is appropriate to only one. <https://en.wiktionary.org/wiki/zeugma>`_.
+It's a figure of speech: "The act of using a word, particularly an adjective or verb, to apply to more than one noun when its sense is appropriate to only one." (from `Wiktionary <https://en.wiktionary.org/wiki/zeugma>`_).
 
-For example, "We lost is wallet and is mind." is a zeugma.
+For example, "He lost is wallet and is mind." is a zeugma.
