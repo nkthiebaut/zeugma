@@ -12,7 +12,7 @@
     :target: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
 
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/zeugma/badge/ 
-    :target: https://readthedocs.org/projects/zeugma/
+    :target: https://zeugma.readthedocs.io/en/latest/
 
 .. |LGTM| image:: https://img.shields.io/lgtm/grade/python/g/nkthiebaut/zeugma.svg?logo=lgtm
     :target: https://lgtm.com/projects/g/nkthiebaut/zeugma/context:python
@@ -109,4 +109,4 @@ Bonus: what's a zeugma?
 -----------------------
 It's a figure of speech: "The act of using a word, particularly an adjective or verb, to apply to more than one noun when its sense is appropriate to only one." (from `Wiktionary <https://en.wiktionary.org/wiki/zeugma>`_).
 
-For example, "He lost is wallet and is mind." is a zeugma.
+For example, "He lost his wallet and his mind." is a zeugma.

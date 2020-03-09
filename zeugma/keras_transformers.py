@@ -13,7 +13,14 @@ from sklearn.pipeline import TransformerMixin
 
 class TextsToSequences(Tokenizer, BaseEstimator, TransformerMixin):
     """ Sklearn transformer to convert texts to indices list
-    (e.g. [["the cute cat"], ["the dog"]] -> [[1, 2, 3], [1, 4]])"""
+
+    Example
+    -------
+    >>> from zeugma import TextsToSequences
+    >>> sequencer = TextsToSequences()
+    >>> sequencer.fit_transform(["the cute cat", "the dog"])
+    [[1, 2, 3], [1, 4]]
+    """
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -52,3 +59,9 @@ class Padder(BaseEstimator, TransformerMixin):
         X = pad_sequences(X, maxlen=self.max_length)
         X[X > self.max_index] = 0
         return X
+
+
+if __name__ == "__main__":
+    import doctest
+
+    doctest.testmod()

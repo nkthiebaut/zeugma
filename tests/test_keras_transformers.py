@@ -13,7 +13,6 @@ def test_sequencer(sample_corpus, sequencer):
     """ Test text sequencer """
     num_words = sequencer.num_words
     out = sequencer.fit_transform(sample_corpus)
-    print(out)
     assert len(out) == len(sample_corpus)
     assert len(out[0]) == 2
     assert max([index for sequence in out for index in sequence]) == num_words - 1

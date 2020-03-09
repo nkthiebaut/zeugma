@@ -1,9 +1,3 @@
-# -*- coding:utf-8 -*-
-"""
-Created on the 01/26/2018
-@author: Nicolas Thiebaut
-@email: nicolas@visage.jobs
-"""
 from collections import defaultdict
 
 from sklearn.base import BaseEstimator, TransformerMixin
