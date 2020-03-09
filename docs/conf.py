@@ -58,7 +58,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "zeugma"
-copyright = "2018, Nicolas Thiebaut"
+copyright = "2020, Nicolas Thiebaut"
 author = "Nicolas Thiebaut"
 
 # The version info for the project you're documenting, acts as replacement for
