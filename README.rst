@@ -1,12 +1,15 @@
 .. -*- mode: rst -*-
 
-|PythonVersions| |TravisBuild| |Coveralls| |ReadTheDocs| |LGTM| |Black|
-
-.. |PythonVersions| image:: https://img.shields.io/pypi/pyversions/zeugma.svg
-    :target: https://github.com/nkthiebaut/zeugma
+|TravisBuild| |Colab| |PythonVersions| |Coveralls| |ReadTheDocs| |LGTM| |Black|
 
 .. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
     :target: https://travis-ci.org/nkthiebaut/zeugma
+
+.. |Colab| image:: https://colab.research.google.com/assets/colab-badge.svg
+    :target: https://colab.research.google.com/github/nkthiebaut/zeugma/
+
+.. |PythonVersions| image:: https://img.shields.io/pypi/pyversions/zeugma.svg
+    :target: https://github.com/nkthiebaut/zeugma
 
 .. |Coveralls| image:: https://img.shields.io/coveralls/github/nkthiebaut/zeugma.svg
     :target: https://coveralls.io/github/nkthiebaut/zeugma?branch=master
@@ -26,7 +29,7 @@ Zeugma
 
 .. inclusion-marker-do-not-remove
 
-📝 Natural language processing (NLP) utils: word embeddings (Word2Vec, GloVe, FastText, ...) and preprocessing transformers, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_. 🛠
+📝 Natural language processing (NLP) utils: word embeddings (Word2Vec, GloVe, FastText, ...) and preprocessing transformers, compatible with `scikit-learn Pipelines <http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html>`_. 🛠 Check the `documentation <https://zeugma.readthedocs.io/en/latest/>`_ for more information.
 
 
 Installation
