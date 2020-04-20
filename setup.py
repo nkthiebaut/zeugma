@@ -2,6 +2,9 @@
 
 from setuptools import setup
 
+with open("README.rst", encoding="utf8") as f:
+    long_description = f.read()
+    
 setup(
     name="zeugma",
     packages=["zeugma"],
@@ -11,7 +14,7 @@ setup(
     description="""Natural language processing (NLP) utils: word embeddings (Word2Vec,
     GloVe, FastText, ...) and preprocessing transformers, compatible with scikit-learn
     Pipelines.""",
-    long_description=open("README.rst", "r").read(),
+    long_description=long_description,
     long_description_content_type="text/x-rst",
     author="Nicolas Thiebaut",
     author_email="nkthiebaut@gmail.com",
