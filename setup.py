@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 from setuptools import setup
+import os
+
+package_root = os.path.abspath(os.path.dirname(__file__))
+version = {}
+with open(os.path.join(package_root, "zeugma/__init__.py")) as fp:
+    exec(fp.read(), version)
+version = version['__version__']
 
 with open("README.rst", encoding="utf8") as f:
     long_description = f.read()
@@ -8,7 +15,7 @@ with open("README.rst", encoding="utf8") as f:
 setup(
     name="zeugma",
     packages=["zeugma"],
-    version="0.46",
+    version=version,
     python_requires=">=3.6",
     license="MIT",
     description="""Natural language processing (NLP) utils: word embeddings (Word2Vec,
@@ -24,6 +31,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     setup_requires=["pytest-runner", "numpy>=1.13.3", "Cython>=0.27.3"],
     install_requires=[
