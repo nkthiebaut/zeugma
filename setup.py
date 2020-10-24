@@ -32,7 +32,7 @@ setup(
     author="Nicolas Thiebaut",
     author_email="nkthiebaut@gmail.com",
     url="https://github.com/nkthiebaut",
-    download_url="https://github.com/nkthiebaut/zeugma/archive/0.46.tar.gz",
+    download_url="https://github.com/nkthiebaut/zeugma/archive/0.48.tar.gz",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
