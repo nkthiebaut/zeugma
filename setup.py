@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 
-from setuptools import setup
 import os
+from setuptools import setup
+import re
 
-package_root = os.path.abspath(os.path.dirname(__file__))
-version = {}
-with open(os.path.join(package_root, "zeugma/__init__.py")) as fp:
-    exec(fp.read(), version)
-version = version['__version__']
+# The package version is given by the __version__ variable defined
+# in the zeugma/__init__.py file
+INIT_FILE = os.path.join("zeugma", "__init__.py")
+VERSION_REGEX = re.compile('__version__ = "(.*)"')
+with open(INIT_FILE, "r") as init:
+    match = re.search(VERSION_REGEX, init.read())
+    if match:
+        version = match.groups()[0]
+    else:
+        raise ValueError("Package version is not properly defined in __init__.py file")
 
 with open("README.rst", encoding="utf8") as f:
     long_description = f.read()
