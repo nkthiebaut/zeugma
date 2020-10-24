@@ -9,10 +9,10 @@ pdbpp
 pre-commit
 pytest
 pytest-cov
-python-dateutil<2.8.1,>=2.1
+python-dateutil>=2.1
 scikit_learn>=0.19.1
 sphinx
 sphinx-autobuild
 sphinx_rtd_theme
-tensorflow~=2.0.0
+tensorflow>=2.2
 twine

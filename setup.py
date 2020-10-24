@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 
+import os
 from setuptools import setup
+import re
+
+# The package version is given by the __version__ variable defined
+# in the zeugma/__init__.py file
+INIT_FILE = os.path.join("zeugma", "__init__.py")
+VERSION_REGEX = re.compile('__version__ = "(.*)"')
+with open(INIT_FILE, "r") as init:
+    match = re.search(VERSION_REGEX, init.read())
+    if match:
+        version = match.groups()[0]
+    else:
+        raise ValueError("Package version is not properly defined in __init__.py file")
 
 with open("README.rst", encoding="utf8") as f:
     long_description = f.read()
@@ -8,7 +21,7 @@ with open("README.rst", encoding="utf8") as f:
 setup(
     name="zeugma",
     packages=["zeugma"],
-    version="0.46",
+    version=version,
     python_requires=">=3.6",
     license="MIT",
     description="""Natural language processing (NLP) utils: word embeddings (Word2Vec,
@@ -24,6 +37,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     setup_requires=["pytest-runner", "numpy>=1.13.3", "Cython>=0.27.3"],
     install_requires=[
