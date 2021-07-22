@@ -10,7 +10,7 @@ from zeugma.logger import package_logger as logger
 
 
 class EmbeddingTransformer(BaseEstimator, TransformerMixin):
-    """ Text vectorizer class: load pre-trained embeddings and transform texts
+    """Text vectorizer class: load pre-trained embeddings and transform texts
     into vectors.
     """
 
@@ -18,7 +18,7 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
     aggregation: str
 
     def __init__(self, model: str = "glove", aggregation: str = "average"):
-        """ Load pre-trained embeddings, either locally if model is a local file path
+        """Load pre-trained embeddings, either locally if model is a local file path
         or a Word2VecKeyedVector object, or downloaded from the gensim API if a string
         is provided.
         """
@@ -62,18 +62,17 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
             self.embedding_dimension *= 2
 
     def transform_sentence(self, text: Union[Iterable, str]) -> np.array:
-        """ Compute an aggregate embedding vector for an input str or iterable of str.
-        """
+        """Compute an aggregate embedding vector for an input str or iterable of str."""
 
         def preprocess_text(raw_text: Union[Iterable, str]) -> List[str]:
-            """ Prepare text for the model, excluding unknown words"""
+            """Prepare text for the model, excluding unknown words"""
             if not isinstance(raw_text, list):
                 if not isinstance(raw_text, str):
                     raise TypeError(
                         f"Input should be a str or a list of str, got {type(raw_text)}"
                     )
                 raw_tokens = raw_text.split()
-            return list(filter(lambda x: x in self.model.vocab, raw_tokens))
+            return list(filter(lambda x: x in self.model, raw_tokens))
 
         tokens = preprocess_text(text)
 
@@ -90,11 +89,11 @@ class EmbeddingTransformer(BaseEstimator, TransformerMixin):
             return np.append(mini, maxi)
 
     def fit(self, x: Iterable[Iterable], y: Iterable = None) -> BaseEstimator:
-        """ Has to define fit method to conform scikit-learn Transformer
-        definition and integrate a sklearn.Pipeline object """
+        """Has to define fit method to conform scikit-learn Transformer
+        definition and integrate a sklearn.Pipeline object"""
         return self  # pragma: no cover
 
     def transform(self, texts: Iterable[str]) -> Iterable[Iterable]:
-        """ Transform corpus from single text transformation method """
+        """Transform corpus from single text transformation method"""
         # TODO: parallelize this method with multiprocessing
         return np.array([self.transform_sentence(t) for t in texts])

@@ -89,7 +89,8 @@ The development workflow for this repo is the following:
 1. create a virtual environment: ``python -m venv venv && source venv/bin/activate``
 2. install required packages: ``pip install -r requirements.txt``
 3. install the pre-commit hooks: ``pre-commit install``
-4. run the test suite with: ``pytest`` from the root folder
+4. install the package itself in editable mode: ``pip install -e .``
+5. run the test suite with: ``pytest`` from the root folder
 
 Distribution via PyPI
 *********************

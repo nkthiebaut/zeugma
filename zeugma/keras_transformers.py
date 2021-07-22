@@ -5,14 +5,14 @@ Created on the 02/05/2018
 @email: nicolas@visage.jobs
 """
 import numpy as np
-from keras.preprocessing.sequence import pad_sequences
-from keras.preprocessing.text import Tokenizer
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import TransformerMixin
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
 
 
 class TextsToSequences(Tokenizer, BaseEstimator, TransformerMixin):
-    """ Sklearn transformer to convert texts to indices list
+    """Sklearn transformer to convert texts to indices list
 
     Example
     -------
@@ -34,7 +34,7 @@ class TextsToSequences(Tokenizer, BaseEstimator, TransformerMixin):
 
 
 class Padder(BaseEstimator, TransformerMixin):
-    """ Pad and crop uneven lists to the same length.
+    """Pad and crop uneven lists to the same length.
     Only the end of lists longer than the max_length attribute are
     kept, and lists shorter than max_length are left-padded with zeros
 

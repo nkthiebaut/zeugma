@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 import os
-from setuptools import setup
 import re
+
+from setuptools import setup
 
 # The package version is given by the __version__ variable defined
 # in the zeugma/__init__.py file
@@ -17,7 +18,7 @@ with open(INIT_FILE, "r") as init:
 
 with open("README.rst", encoding="utf8") as f:
     long_description = f.read()
-    
+
 setup(
     name="zeugma",
     packages=["zeugma"],
@@ -32,7 +33,7 @@ setup(
     author="Nicolas Thiebaut",
     author_email="nkthiebaut@gmail.com",
     url="https://github.com/nkthiebaut",
-    download_url="https://github.com/nkthiebaut/zeugma/archive/0.48.tar.gz",
+    download_url="https://github.com/nkthiebaut/zeugma/archive/0.49.tar.gz",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
