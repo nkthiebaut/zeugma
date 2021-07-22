@@ -14,7 +14,7 @@ def test_embedding_instatantiation(sample_corpus_embedding, toy_model_keyed_vect
 
 
 def test_corpus_transformation(sample_corpus_embedding, toy_model_keyed_vectors):
-    """ Test toy model embedding on a basic corpus """
+    """Test toy model embedding on a basic corpus"""
     embedder = EmbeddingTransformer(model=toy_model_keyed_vectors)
     embeddings = embedder.transform(sample_corpus_embedding)
     assert embeddings.shape[0] == len(sample_corpus_embedding)
@@ -26,7 +26,7 @@ def test_corpus_transformation(sample_corpus_embedding, toy_model_keyed_vectors)
         model=toy_model_keyed_vectors, aggregation="sum"
     )
     embeddings_sum = embedder_sum.transform(sample_corpus_embedding)
-    corpus_words = set(toy_model_keyed_vectors.vocab.keys())
+    corpus_words = set(toy_model_keyed_vectors.key_to_index.keys())
     sample_corpus_overlap = [
         set(sentence.split()) & corpus_words for sentence in sample_corpus_embedding
     ]

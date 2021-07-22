@@ -1,13 +1,13 @@
 import gensim.downloader as api
 import numpy as np
 import pytest
-from gensim.sklearn_api import W2VTransformer
+from gensim import models
 from gensim.test.utils import common_texts
 
 
 @pytest.fixture(scope="function")
 def sample_corpus():
-    """ Return a sample corpus in a numpy.array """
+    """Return a sample corpus in a numpy.array"""
     corpus = [
         "Here a first example text",
         "This is a second text with a weird word gwiurgergwggreg",
@@ -19,7 +19,7 @@ def sample_corpus():
 
 @pytest.fixture(scope="function")
 def sample_corpus_embedding():
-    """ Return a sample corpus in a numpy.array """
+    """Return a sample corpus in a numpy.array"""
     corpus = [
         "human computer",
         "interface gwiurgergwggreg",
@@ -31,10 +31,14 @@ def sample_corpus_embedding():
 
 @pytest.fixture(scope="module")
 def toy_model_keyed_vectors():
-    """ Instantiate trainable word2vec vectorizer """
-    model = W2VTransformer(size=10, min_count=1, seed=42)
-    model.fit(common_texts)
-    return model.gensim_model.wv
+    """Instantiate trainable word2vec vectorizer"""
+    model = models.Word2Vec(
+        sentences=common_texts,
+        vector_size=10,
+        min_count=1,
+        seed=42,
+    )
+    return model.wv
 
 
 @pytest.fixture(autouse=True)
