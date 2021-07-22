@@ -10,4 +10,4 @@ from .embeddings import EmbeddingTransformer  # noqa
 from .texttransformers import RareWordsTagger, ItemSelector, TextStats  # noqa
 from .keras_transformers import TextsToSequences, Padder  # noqa
 
-__version__ = "0.48"
+__version__ = "0.49"
