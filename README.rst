@@ -2,8 +2,8 @@
 
 |TravisBuild| |Colab| |PythonVersions| |Coveralls| |ReadTheDocs| |LGTM| |Black|
 
-.. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
-    :target: https://travis-ci.org/nkthiebaut/zeugma
+.. |TravisBuild| image:: https://travis-ci.com/nkthiebaut/zeugma.svg?branch=master&service=github
+    :target: https://travis-ci.com/nkthiebaut/zeugma
 
 .. |Colab| image:: https://colab.research.google.com/assets/colab-badge.svg
     :target: https://colab.research.google.com/github/nkthiebaut/zeugma/
