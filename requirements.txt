@@ -3,7 +3,7 @@ coveralls
 Cython>=0.27.3
 gensim~=4.0
 keras>=2.1.3
-numpy~=1.18
+numpy~=1.19.2
 pandas>=0.20.3
 pdbpp
 pre-commit
