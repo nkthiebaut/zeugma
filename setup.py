@@ -40,9 +40,9 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    setup_requires=["pytest-runner", "numpy>=1.13.3", "Cython>=0.27.3"],
+    setup_requires=["pytest-runner", "numpy~=1.19.2", "Cython>=0.27.3"],
     install_requires=[
-        "numpy>=1.13.3",
+        "numpy~=1.19.2",
         "Cython>=0.27.3",
         "pandas>=0.20.3",
         "gensim>=3.5.0",
