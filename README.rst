@@ -2,8 +2,8 @@
 
 |TravisBuild| |Colab| |PythonVersions| |Coveralls| |ReadTheDocs| |LGTM| |Black|
 
-.. |TravisBuild| image:: https://travis-ci.org/nkthiebaut/zeugma.svg?branch=master&service=github
-    :target: https://travis-ci.org/nkthiebaut/zeugma
+.. |TravisBuild| image:: https://travis-ci.com/nkthiebaut/zeugma.svg?branch=master&service=github
+    :target: https://travis-ci.com/nkthiebaut/zeugma
 
 .. |Colab| image:: https://colab.research.google.com/assets/colab-badge.svg
     :target: https://colab.research.google.com/github/nkthiebaut/zeugma/
@@ -100,7 +100,7 @@ To upload a new version to PyPI, simply:
 1. tag your new version on git: ``git tag -a x.x -m "my tag message"``
 2. update the download_url field in the ``setup.py`` file
 3. commit, push the code and the tag (``git push origin x.x``), and make a PR
-4. Make sure you have a ``.pypirc`` file structured like `this <https://docs.python.org/3.3/distutils/packageindex.html#the-pypirc-file>`_ in your home folder (you can use ``https://upload.pypi.org/legacy/`` for the URL field)
+4. make sure you have a ``.pypirc`` file structured like `this <https://docs.python.org/3.3/distutils/packageindex.html#the-pypirc-file>`_ in your home folder (you can use ``https://upload.pypi.org/legacy/`` for the URL field)
 5. once the updated code is present in master run ``python setup.py sdist && twine upload dist/*`` from the root of the package to distribute it.
 
 Building documentation
