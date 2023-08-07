@@ -17,9 +17,6 @@
 .. |ReadTheDocs| image:: https://readthedocs.org/projects/zeugma/badge/ 
     :target: https://zeugma.readthedocs.io/en/latest/
 
-.. |LGTM| image:: https://img.shields.io/lgtm/grade/python/g/nkthiebaut/zeugma.svg?logo=lgtm
-    :target: https://lgtm.com/projects/g/nkthiebaut/zeugma/context:python
-
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/ambv/black
 
