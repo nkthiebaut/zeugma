@@ -1,6 +1,6 @@
 .. -*- mode: rst -*-
 
-|TravisBuild| |Colab| |PythonVersions| |Coveralls| |ReadTheDocs| |LGTM| |Black|
+|TravisBuild| |Colab| |PythonVersions| |Coveralls| |ReadTheDocs| |Black|
 
 .. |TravisBuild| image:: https://travis-ci.com/nkthiebaut/zeugma.svg?branch=master&service=github
     :target: https://travis-ci.com/nkthiebaut/zeugma
